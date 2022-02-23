@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0138EE1627C55EDA001A484A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1527C55EDA001A484A /* AppDelegate.swift */; };
 		0138EE1827C55EDA001A484A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1727C55EDA001A484A /* SceneDelegate.swift */; };
-		0138EE1A27C55EDA001A484A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1927C55EDA001A484A /* ViewController.swift */; };
+		0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1927C55EDA001A484A /* HousesViewController.swift */; };
 		0138EE1D27C55EDA001A484A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE1B27C55EDA001A484A /* Main.storyboard */; };
 		0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */; };
 		0138EE2227C55EDC001A484A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE2127C55EDC001A484A /* Assets.xcassets */; };
@@ -17,6 +17,28 @@
 		0138EE3027C55EDC001A484A /* RealEstateDTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE2F27C55EDC001A484A /* RealEstateDTTTests.swift */; };
 		0138EE3A27C55EDC001A484A /* RealEstateDTTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE3927C55EDC001A484A /* RealEstateDTTUITests.swift */; };
 		0138EE3C27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE3B27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift */; };
+		0138EE5527C55F79001A484A /* GothamSSm-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4927C55F78001A484A /* GothamSSm-BoldItalic.otf */; };
+		0138EE5627C55F79001A484A /* GothamSSm-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4A27C55F78001A484A /* GothamSSm-BookItalic.otf */; };
+		0138EE5727C55F79001A484A /* GothamSSm-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4B27C55F78001A484A /* GothamSSm-Black.otf */; };
+		0138EE5827C55F79001A484A /* GothamSSm-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4C27C55F78001A484A /* GothamSSm-Light.otf */; };
+		0138EE5927C55F79001A484A /* GothamSSm-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4D27C55F78001A484A /* GothamSSm-XLightItalic.otf */; };
+		0138EE5A27C55F79001A484A /* GothamSSm-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4E27C55F79001A484A /* GothamSSm-Medium.otf */; };
+		0138EE5B27C55F79001A484A /* GothamSSm-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4F27C55F79001A484A /* GothamSSm-Book.otf */; };
+		0138EE5C27C55F79001A484A /* GothamSSm-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5027C55F79001A484A /* GothamSSm-MediumItalic.otf */; };
+		0138EE5D27C55F79001A484A /* GothamSSm-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5127C55F79001A484A /* GothamSSm-Bold.otf */; };
+		0138EE5E27C55F79001A484A /* GothamSSm-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5227C55F79001A484A /* GothamSSm-BlackItalic.otf */; };
+		0138EE5F27C55F79001A484A /* GothamSSm-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5327C55F79001A484A /* GothamSSm-LightItalic.otf */; };
+		0138EE6027C55F79001A484A /* GothamSSm-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5427C55F79001A484A /* GothamSSm-XLight.otf */; };
+		0138EE6227C56145001A484A /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6127C56145001A484A /* MainNavigationController.swift */; };
+		0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6327C56A97001A484A /* DetailViewController.swift */; };
+		0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6827C56DAE001A484A /* HouseTableViewCell.swift */; };
+		0138EE6B27C56DAE001A484A /* HouseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE6927C56DAE001A484A /* HouseTableViewCell.xib */; };
+		0138EE6D27C572BF001A484A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6C27C572BF001A484A /* InfoViewController.swift */; };
+		0138EE7027C5753F001A484A /* Houses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6F27C5753F001A484A /* Houses.swift */; };
+		0138EE7327C576F6001A484A /* NetworkDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7227C576F6001A484A /* NetworkDownload.swift */; };
+		0138EE7527C57AD4001A484A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7427C57AD4001A484A /* CoreDataManager.swift */; };
+		0138EE7727C61973001A484A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7627C61973001A484A /* LocationManager.swift */; };
+		0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7827C62E25001A484A /* HouseAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +62,7 @@
 		0138EE1227C55EDA001A484A /* RealEstateDTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealEstateDTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0138EE1527C55EDA001A484A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0138EE1727C55EDA001A484A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0138EE1927C55EDA001A484A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0138EE1927C55EDA001A484A /* HousesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
 		0138EE1C27C55EDA001A484A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0138EE1F27C55EDA001A484A /* RealEstateDTT.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RealEstateDTT.xcdatamodel; sourceTree = "<group>"; };
 		0138EE2127C55EDC001A484A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +73,28 @@
 		0138EE3527C55EDC001A484A /* RealEstateDTTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealEstateDTTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0138EE3927C55EDC001A484A /* RealEstateDTTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateDTTUITests.swift; sourceTree = "<group>"; };
 		0138EE3B27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateDTTUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0138EE4927C55F78001A484A /* GothamSSm-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-BoldItalic.otf"; sourceTree = "<group>"; };
+		0138EE4A27C55F78001A484A /* GothamSSm-BookItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-BookItalic.otf"; sourceTree = "<group>"; };
+		0138EE4B27C55F78001A484A /* GothamSSm-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-Black.otf"; sourceTree = "<group>"; };
+		0138EE4C27C55F78001A484A /* GothamSSm-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-Light.otf"; sourceTree = "<group>"; };
+		0138EE4D27C55F78001A484A /* GothamSSm-XLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-XLightItalic.otf"; sourceTree = "<group>"; };
+		0138EE4E27C55F79001A484A /* GothamSSm-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-Medium.otf"; sourceTree = "<group>"; };
+		0138EE4F27C55F79001A484A /* GothamSSm-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-Book.otf"; sourceTree = "<group>"; };
+		0138EE5027C55F79001A484A /* GothamSSm-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-MediumItalic.otf"; sourceTree = "<group>"; };
+		0138EE5127C55F79001A484A /* GothamSSm-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-Bold.otf"; sourceTree = "<group>"; };
+		0138EE5227C55F79001A484A /* GothamSSm-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-BlackItalic.otf"; sourceTree = "<group>"; };
+		0138EE5327C55F79001A484A /* GothamSSm-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-LightItalic.otf"; sourceTree = "<group>"; };
+		0138EE5427C55F79001A484A /* GothamSSm-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-XLight.otf"; sourceTree = "<group>"; };
+		0138EE6127C56145001A484A /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		0138EE6327C56A97001A484A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0138EE6827C56DAE001A484A /* HouseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTableViewCell.swift; sourceTree = "<group>"; };
+		0138EE6927C56DAE001A484A /* HouseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseTableViewCell.xib; sourceTree = "<group>"; };
+		0138EE6C27C572BF001A484A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		0138EE6F27C5753F001A484A /* Houses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Houses.swift; sourceTree = "<group>"; };
+		0138EE7227C576F6001A484A /* NetworkDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDownload.swift; sourceTree = "<group>"; };
+		0138EE7427C57AD4001A484A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0138EE7627C61973001A484A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0138EE7827C62E25001A484A /* HouseAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +145,14 @@
 		0138EE1427C55EDA001A484A /* RealEstateDTT */ = {
 			isa = PBXGroup;
 			children = (
+				0138EE6E27C57436001A484A /* Model */,
+				0138EE7127C576E0001A484A /* Service */,
+				0138EE6527C56D71001A484A /* ViewControllers */,
+				0138EE6627C56D84001A484A /* Resources */,
 				0138EE1527C55EDA001A484A /* AppDelegate.swift */,
 				0138EE1727C55EDA001A484A /* SceneDelegate.swift */,
-				0138EE1927C55EDA001A484A /* ViewController.swift */,
-				0138EE1B27C55EDA001A484A /* Main.storyboard */,
+				0138EE6727C56D93001A484A /* Views */,
 				0138EE2127C55EDC001A484A /* Assets.xcassets */,
-				0138EE2327C55EDC001A484A /* LaunchScreen.storyboard */,
 				0138EE2627C55EDC001A484A /* Info.plist */,
 				0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */,
 			);
@@ -128,6 +174,66 @@
 				0138EE3B27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift */,
 			);
 			path = RealEstateDTTUITests;
+			sourceTree = "<group>";
+		};
+		0138EE6527C56D71001A484A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE1927C55EDA001A484A /* HousesViewController.swift */,
+				0138EE6127C56145001A484A /* MainNavigationController.swift */,
+				0138EE6327C56A97001A484A /* DetailViewController.swift */,
+				0138EE6C27C572BF001A484A /* InfoViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0138EE6627C56D84001A484A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE4B27C55F78001A484A /* GothamSSm-Black.otf */,
+				0138EE5227C55F79001A484A /* GothamSSm-BlackItalic.otf */,
+				0138EE5127C55F79001A484A /* GothamSSm-Bold.otf */,
+				0138EE4927C55F78001A484A /* GothamSSm-BoldItalic.otf */,
+				0138EE4F27C55F79001A484A /* GothamSSm-Book.otf */,
+				0138EE4A27C55F78001A484A /* GothamSSm-BookItalic.otf */,
+				0138EE4C27C55F78001A484A /* GothamSSm-Light.otf */,
+				0138EE5327C55F79001A484A /* GothamSSm-LightItalic.otf */,
+				0138EE4E27C55F79001A484A /* GothamSSm-Medium.otf */,
+				0138EE5027C55F79001A484A /* GothamSSm-MediumItalic.otf */,
+				0138EE5427C55F79001A484A /* GothamSSm-XLight.otf */,
+				0138EE4D27C55F78001A484A /* GothamSSm-XLightItalic.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0138EE6727C56D93001A484A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE1B27C55EDA001A484A /* Main.storyboard */,
+				0138EE2327C55EDC001A484A /* LaunchScreen.storyboard */,
+				0138EE6827C56DAE001A484A /* HouseTableViewCell.swift */,
+				0138EE6927C56DAE001A484A /* HouseTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0138EE6E27C57436001A484A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE6F27C5753F001A484A /* Houses.swift */,
+				0138EE7827C62E25001A484A /* HouseAnnotation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0138EE7127C576E0001A484A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE7227C576F6001A484A /* NetworkDownload.swift */,
+				0138EE7427C57AD4001A484A /* CoreDataManager.swift */,
+				0138EE7627C61973001A484A /* LocationManager.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,9 +340,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0138EE5F27C55F79001A484A /* GothamSSm-LightItalic.otf in Resources */,
 				0138EE2527C55EDC001A484A /* LaunchScreen.storyboard in Resources */,
+				0138EE5727C55F79001A484A /* GothamSSm-Black.otf in Resources */,
+				0138EE5B27C55F79001A484A /* GothamSSm-Book.otf in Resources */,
+				0138EE5E27C55F79001A484A /* GothamSSm-BlackItalic.otf in Resources */,
+				0138EE5A27C55F79001A484A /* GothamSSm-Medium.otf in Resources */,
+				0138EE5627C55F79001A484A /* GothamSSm-BookItalic.otf in Resources */,
+				0138EE5827C55F79001A484A /* GothamSSm-Light.otf in Resources */,
+				0138EE5D27C55F79001A484A /* GothamSSm-Bold.otf in Resources */,
 				0138EE2227C55EDC001A484A /* Assets.xcassets in Resources */,
+				0138EE5C27C55F79001A484A /* GothamSSm-MediumItalic.otf in Resources */,
+				0138EE5527C55F79001A484A /* GothamSSm-BoldItalic.otf in Resources */,
 				0138EE1D27C55EDA001A484A /* Main.storyboard in Resources */,
+				0138EE6027C55F79001A484A /* GothamSSm-XLight.otf in Resources */,
+				0138EE6B27C56DAE001A484A /* HouseTableViewCell.xib in Resources */,
+				0138EE5927C55F79001A484A /* GothamSSm-XLightItalic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,10 +380,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0138EE7327C576F6001A484A /* NetworkDownload.swift in Sources */,
+				0138EE6227C56145001A484A /* MainNavigationController.swift in Sources */,
 				0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */,
-				0138EE1A27C55EDA001A484A /* ViewController.swift in Sources */,
+				0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */,
+				0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */,
 				0138EE1627C55EDA001A484A /* AppDelegate.swift in Sources */,
+				0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */,
+				0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */,
+				0138EE6D27C572BF001A484A /* InfoViewController.swift in Sources */,
+				0138EE7727C61973001A484A /* LocationManager.swift in Sources */,
+				0138EE7027C5753F001A484A /* Houses.swift in Sources */,
 				0138EE1827C55EDA001A484A /* SceneDelegate.swift in Sources */,
+				0138EE7527C57AD4001A484A /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,11 +574,14 @@
 				DEVELOPMENT_TEAM = F97FE5Z68U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RealEstateDTT/Info.plist;
+				INFOPLIST_KEY_NSLocationUsageDescription = "We would like to use your current location to calculate the distance between your new house and your current location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location can be used to calculate distance to your new house";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -474,11 +605,14 @@
 				DEVELOPMENT_TEAM = F97FE5Z68U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RealEstateDTT/Info.plist;
+				INFOPLIST_KEY_NSLocationUsageDescription = "We would like to use your current location to calculate the distance between your new house and your current location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location can be used to calculate distance to your new house";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
