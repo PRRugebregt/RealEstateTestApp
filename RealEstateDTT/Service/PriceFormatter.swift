@@ -8,6 +8,7 @@
 import Foundation
 
 class PriceFormatter {
+    
     static let shared = PriceFormatter()
     var numberFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -15,6 +16,7 @@ class PriceFormatter {
         return formatter
     }
     
+    // Format price in 1,000,000
     func formatPrice(_ price: Int) -> String? {
         numberFormatter.string(from: NSNumber(integerLiteral: price))
     }

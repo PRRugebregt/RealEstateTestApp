@@ -12,11 +12,15 @@ class HousesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var housesTableView: UITableView!
     @IBOutlet weak var noSearchResultsImage: UIImageView!
-    private var filter = Filter()
+    private let houseManager = HouseManager(network: NetworkDownload())
+    private let filter = Filter()
+    private var chosenHouse: House?
+    private var chosenDistance: Float = 0
     private var houses = [House]() {
         didSet {
+            print("Received")
             houses.sort(by: {$0.price < $1.price})
-            NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+            refreshTable()
         }
     }
     private var locationManager: LocationManager {
@@ -26,67 +30,42 @@ class HousesViewController: UIViewController {
         }
         set {}
     }
-    private var chosenHouse: House?
-    private var chosenDistance: Float = 0
-    var network: NetworkFetchable!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .dttLightGray
-        housesTableView.backgroundColor = .clear
-        tabBarController?.tabBar.backgroundColor = .white
-        navigationController?.navigationBar.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
+        setupUI()
+        
         searchBar.delegate = self
         
         housesTableView.delegate = self
         housesTableView.dataSource = self
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         housesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
-        housesTableView.rowHeight = 103
+        housesTableView.rowHeight = 110
         
+        askForLocationUse()
+        houseManager.checkForCoreDataObjects()
+    }
+    
+    func setupUI() {
+        housesTableView.backgroundColor = .clear
+        tabBarController?.tabBar.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    func askForLocationUse() {
         locationManager.locationManager.requestWhenInUseAuthorization()
         if locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
             locationManager.fetchCurrentLocation()
         }
-        
-        checkForCoreDataObjects()
     }
     
-    // When houses haven't been saved to CoreData yet, fetch them from network, else load them from coredata
-    func checkForCoreDataObjects() {
-        let fetchedObjects = CoreDataManager.shared.fetchHouses()
-        guard !fetchedObjects.isEmpty else {
-            downloadHouses()
-            return
-        }
-        print("Loaded from coredata")
-        houses = fetchedObjects
-        filter.originalHousesList = houses
-        refreshTable()
-    }
-    
-    func downloadHouses() {
-        network.fetchFromApi { items in
-            self.houses = items
-            self.downloadImages()
-        }
-    }
-    
-    /* not very elegant but making sure reloadData() only gets called once every image is loaded
-    with count == self.houses.count
-     */
-    func downloadImages() {
-        var count = 0
-        for i in houses.indices {
-            network.fetchImage(imagePath: houses[i].imageURL) { imageData in
-                count += 1
-                self.houses[i].imageData = imageData
-                if count == self.houses.count {
-                    self.refreshTable()
-                    self.filter.originalHousesList = self.houses
-                    CoreDataManager.shared.saveHouses(self.houses)
-                }
-            }
+    // Responding to notification posted by HouseManager
+    @objc func updateHouses(_ notification: Notification) {
+        print("received data in housesviewcontroller")
+        if let houses = notification.userInfo?["houses"] as? [House] {
+            self.houses = houses
         }
     }
     
@@ -96,24 +75,12 @@ class HousesViewController: UIViewController {
         }
     }
     
+    // Preparing for segue to detail view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! DetailViewController
         destination.chosenHouse = chosenHouse
         destination.chosenDistance = chosenDistance
-        destination.delegate = self
-    }
-
-    // Using description as a unique identifier for now
-    func updateHouse(_ chosenHouse: House, isFavorite: Bool) {
-        for i in houses.indices {
-            if houses[i].descriptionString == chosenHouse.descriptionString {
-                print("Found")
-                houses[i].isFavorite = isFavorite
-                CoreDataManager.shared.updateCoreDataHouse(description: houses[i].descriptionString, isFavorite: isFavorite)
-                NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
-                break
-            }
-        }
+        destination.houseManager = houseManager
     }
     
 }
@@ -146,7 +113,6 @@ extension HousesViewController: UITableViewDataSource {
         } else {
             cell.houseImage.image = UIImage(named: "home-2")
         }
-
         let priceString = PriceFormatter.shared.formatPrice(houseForCell.price)
         cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
         cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city

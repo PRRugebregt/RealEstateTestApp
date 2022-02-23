@@ -26,7 +26,14 @@ class HouseTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.backgroundColor = .clear
+        self.frame.size.height = 100
+        self.contentView.backgroundColor = .white
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = 8
+        self.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

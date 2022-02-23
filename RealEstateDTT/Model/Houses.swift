@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct Houses: Codable {
+struct Houses {
     
     var all: [House]
     
@@ -30,6 +30,8 @@ struct House: Codable, Identifiable {
     var imageData: Data?
     var isFavorite = false
     
+    // descriptionString was necessary to convert to CoreDataObject.
+    // Providing codingkeys to work with Network Api
     enum CodingKeys: String, CodingKey {
         case id
         case imageURL = "image"

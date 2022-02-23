@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var chosenHouse: House!
-    var delegate: HousesViewController!
+    var houseManager: HouseManager!
     var houseAnnotation: HouseAnnotation {
         let zip = chosenHouse.zip
         let city = chosenHouse.city
@@ -46,6 +46,7 @@ class DetailViewController: UIViewController {
 
     }
     
+    // Making sure to display all the information of chosenHouse
     func setupUI() {
         self.view.backgroundColor = .dttLightGray
         if let imageData = chosenHouse.imageData {
@@ -66,6 +67,7 @@ class DetailViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
     }
     
+    // Zooming on the house Location
     func setupMap() {
         let center = CLLocationCoordinate2D(latitude: Double(chosenHouse.latitude), longitude: Double(chosenHouse.longitude))
         mapView.centerCoordinate = center
@@ -75,15 +77,17 @@ class DetailViewController: UIViewController {
         mapView.addAnnotation(houseAnnotation)
     }
 
+    // Method to pop viewcontroller when custom back button is pressed
     @objc func popDetailView() {
         print("called")
         self.navigationController?.popViewController(animated: true)
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    // Saving chosenHouse in favorite list by toggling isFavorite property.
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
         chosenHouse.isFavorite.toggle()
-        delegate.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
+        houseManager.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
         if chosenHouse.isFavorite {
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
@@ -96,6 +100,7 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: MKMapViewDelegate {
     
+    // Creating mapView with address as title.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? HouseAnnotation else { return nil }
         let identifier = "house"
@@ -112,6 +117,7 @@ extension DetailViewController: MKMapViewDelegate {
         return view
     }
     
+    // AccessoryButton shows route to house
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let houseAnnotation = view.annotation as? HouseAnnotation else { return }
         let launchOptions = [

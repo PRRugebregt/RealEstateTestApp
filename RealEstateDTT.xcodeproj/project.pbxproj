@@ -29,7 +29,6 @@
 		0138EE5E27C55F79001A484A /* GothamSSm-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5227C55F79001A484A /* GothamSSm-BlackItalic.otf */; };
 		0138EE5F27C55F79001A484A /* GothamSSm-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5327C55F79001A484A /* GothamSSm-LightItalic.otf */; };
 		0138EE6027C55F79001A484A /* GothamSSm-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE5427C55F79001A484A /* GothamSSm-XLight.otf */; };
-		0138EE6227C56145001A484A /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6127C56145001A484A /* MainNavigationController.swift */; };
 		0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6327C56A97001A484A /* DetailViewController.swift */; };
 		0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE6827C56DAE001A484A /* HouseTableViewCell.swift */; };
 		0138EE6B27C56DAE001A484A /* HouseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE6927C56DAE001A484A /* HouseTableViewCell.xib */; };
@@ -43,6 +42,10 @@
 		0138EE7D27C6AA71001A484A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7C27C6AA71001A484A /* Colors.swift */; };
 		0138EE7F27C6AF75001A484A /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7E27C6AF75001A484A /* PriceFormatter.swift */; };
 		0138EE8127C6B634001A484A /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8027C6B634001A484A /* FavoriteViewController.swift */; };
+		0138EE8327C6C718001A484A /* HouseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8227C6C718001A484A /* HouseManager.swift */; };
+		0138EE8527C6D2B1001A484A /* MockNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8427C6D2B1001A484A /* MockNetwork.swift */; };
+		0138EE8727C6D699001A484A /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8627C6D699001A484A /* FilterTests.swift */; };
+		0138EE8927C6D80F001A484A /* PriceFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +92,6 @@
 		0138EE5227C55F79001A484A /* GothamSSm-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-BlackItalic.otf"; sourceTree = "<group>"; };
 		0138EE5327C55F79001A484A /* GothamSSm-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-LightItalic.otf"; sourceTree = "<group>"; };
 		0138EE5427C55F79001A484A /* GothamSSm-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamSSm-XLight.otf"; sourceTree = "<group>"; };
-		0138EE6127C56145001A484A /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		0138EE6327C56A97001A484A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0138EE6827C56DAE001A484A /* HouseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTableViewCell.swift; sourceTree = "<group>"; };
 		0138EE6927C56DAE001A484A /* HouseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseTableViewCell.xib; sourceTree = "<group>"; };
@@ -103,6 +105,10 @@
 		0138EE7C27C6AA71001A484A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0138EE7E27C6AF75001A484A /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		0138EE8027C6B634001A484A /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		0138EE8227C6C718001A484A /* HouseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseManager.swift; sourceTree = "<group>"; };
+		0138EE8427C6D2B1001A484A /* MockNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetwork.swift; sourceTree = "<group>"; };
+		0138EE8627C6D699001A484A /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
+		0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,10 +162,10 @@
 				0138EE6E27C57436001A484A /* Model */,
 				0138EE7127C576E0001A484A /* Service */,
 				0138EE6527C56D71001A484A /* ViewControllers */,
+				0138EE6727C56D93001A484A /* Views */,
 				0138EE6627C56D84001A484A /* Resources */,
 				0138EE1527C55EDA001A484A /* AppDelegate.swift */,
 				0138EE1727C55EDA001A484A /* SceneDelegate.swift */,
-				0138EE6727C56D93001A484A /* Views */,
 				0138EE2127C55EDC001A484A /* Assets.xcassets */,
 				0138EE2627C55EDC001A484A /* Info.plist */,
 			);
@@ -170,6 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				0138EE2F27C55EDC001A484A /* RealEstateDTTTests.swift */,
+				0138EE8627C6D699001A484A /* FilterTests.swift */,
+				0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */,
 			);
 			path = RealEstateDTTTests;
 			sourceTree = "<group>";
@@ -187,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				0138EE1927C55EDA001A484A /* HousesViewController.swift */,
-				0138EE6127C56145001A484A /* MainNavigationController.swift */,
 				0138EE6327C56A97001A484A /* DetailViewController.swift */,
 				0138EE6C27C572BF001A484A /* InfoViewController.swift */,
 				0138EE8027C6B634001A484A /* FavoriteViewController.swift */,
@@ -244,6 +251,8 @@
 				0138EE7427C57AD4001A484A /* CoreDataManager.swift */,
 				0138EE7627C61973001A484A /* LocationManager.swift */,
 				0138EE7E27C6AF75001A484A /* PriceFormatter.swift */,
+				0138EE8227C6C718001A484A /* HouseManager.swift */,
+				0138EE8427C6D2B1001A484A /* MockNetwork.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -394,10 +403,11 @@
 			files = (
 				0138EE7327C576F6001A484A /* NetworkDownload.swift in Sources */,
 				0138EE7D27C6AA71001A484A /* Colors.swift in Sources */,
-				0138EE6227C56145001A484A /* MainNavigationController.swift in Sources */,
 				0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */,
+				0138EE8327C6C718001A484A /* HouseManager.swift in Sources */,
 				0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */,
 				0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */,
+				0138EE8527C6D2B1001A484A /* MockNetwork.swift in Sources */,
 				0138EE1627C55EDA001A484A /* AppDelegate.swift in Sources */,
 				0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */,
 				0138EE7B27C6A07A001A484A /* Filter.swift in Sources */,
@@ -417,6 +427,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0138EE3027C55EDC001A484A /* RealEstateDTTTests.swift in Sources */,
+				0138EE8927C6D80F001A484A /* PriceFormatterTests.swift in Sources */,
+				0138EE8727C6D699001A484A /* FilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

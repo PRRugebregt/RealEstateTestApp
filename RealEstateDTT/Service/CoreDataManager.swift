@@ -79,6 +79,7 @@ class CoreDataManager {
         saveContext()
     }
     
+    // Update if house is saved as favorite
     func updateCoreDataHouse(description: String, isFavorite: Bool) {
         let context = persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HouseCoreData")
@@ -86,12 +87,9 @@ class CoreDataManager {
         do {
             let result = try context.fetch(request)
             let resultData = result as! [HouseCoreData]
-            print(resultData)
-            for object in resultData {
-                if object.descriptionString == description {
-                    object.setValue(isFavorite, forKey: "isFavorite")
-                }
-            }
+            let object = resultData[0]
+            object.setValue(isFavorite, forKey: "isFavorite")
+            saveContext()
         } catch {
             print(error)
         }

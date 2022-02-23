@@ -16,6 +16,7 @@ class HouseAnnotation: NSObject, MKAnnotation {
     let zip: String
     let city: String
     
+    // Creating map item to open in Maps. Using zipcode as streetaddress. 
     var mapItem: MKMapItem? {
         let addressDictionary = [CNPostalAddressStreetKey: zip,
                                    CNPostalAddressCityKey: city]

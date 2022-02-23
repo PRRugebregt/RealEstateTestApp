@@ -10,6 +10,7 @@ import UIKit
 class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var favoritesTableView: UITableView!
+    // Using same locationManager to avoid 2 locationManagers
     private var locationManager: LocationManager {
         get {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -17,10 +18,12 @@ class FavoriteViewController: UIViewController {
         }
         set {}
     }
+    // Fetching houses from AppDelegate the first time, since this class is
+    // not yet subscribed to the notification
     var favoriteHouses : [House] {
         get {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.favoriteHouses
+        return appDelegate.houses.filter({$0.isFavorite})
         }
         set{}
     }
@@ -32,9 +35,10 @@ class FavoriteViewController: UIViewController {
         favoritesTableView.dataSource = self
         favoritesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         favoritesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
-        favoritesTableView.rowHeight = 103
+        favoritesTableView.rowHeight = 110
     }
     
+    // Making sure list is up to date
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         DispatchQueue.main.async {
@@ -42,6 +46,7 @@ class FavoriteViewController: UIViewController {
         }
     }
     
+    // Responding to Notification from HouseManager. Filtering results for favorites list.
     @objc func updateFavorites(_ notification: Notification) {
         print("received data")
         if let houses = notification.userInfo?["houses"] as? [House] {

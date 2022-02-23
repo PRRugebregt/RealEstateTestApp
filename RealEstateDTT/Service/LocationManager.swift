@@ -19,6 +19,7 @@ class LocationManager: NSObject {
         locationManager.stopUpdatingLocation()
     }
     
+    // Calculate distance from user location to house with coordinates
     func calculateDistance(latitude: Double, longitude: Double) -> Float {
         let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees( longitude))
         let distance = currentLocation.distance(from: location)
