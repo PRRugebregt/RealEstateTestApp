@@ -13,6 +13,7 @@ class MainNavigationController: UINavigationController {
         super.viewDidLoad()
         let housesViewController = self.children[0] as! HousesViewController
         housesViewController.network = NetworkDownload()
+
     }
 
 

@@ -25,9 +25,24 @@ class CoreDataManager {
     func fetchHouses() -> [House] {
         let request: NSFetchRequest<HouseCoreData> = HouseCoreData.fetchRequest()
         do {
-            let result = try persistentContainer.viewContext.fetch(request) as! [House]
-            print(result)
-            return result
+            let result = try persistentContainer.viewContext.fetch(request)
+            var houses = [House]()
+            for result in result {
+                let house = House(id: Int(bitPattern: result.id),
+                                  imageURL: "",
+                                  descriptionString: result.description,
+                                  zip: result.zip!,
+                                  city: result.city!,
+                                  price: Int(result.price),
+                                  bedrooms: Int(result.bedrooms),
+                                  bathrooms: Int(result.bathrooms),
+                                  size: Int(result.size),
+                                  latitude: Double(result.latitude),
+                                  longitude: Double(result.longitude),
+                                  imageData: result.image)
+                houses.append(house)
+            }
+            return houses
         } catch {
             print(error)
         }
@@ -57,8 +72,9 @@ class CoreDataManager {
             houseCoreData.latitude = Int16(house.latitude)
             houseCoreData.longitude = Int16(house.longitude)
             houseCoreData.descriptionString = house.descriptionString
-            houseCoreData.price = Int16(house.price)
+            houseCoreData.price = Int64(house.price)
             houseCoreData.size = Int16(house.size)
+            print("saving house")
         }
         saveContext()
     }

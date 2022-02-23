@@ -17,12 +17,12 @@ class HouseAnnotation: NSObject, MKAnnotation {
     let city: String
     
     var mapItem: MKMapItem? {
-      let addressDictionary = [CNPostalAddressStreetKey: zip,
-                           CNPostalAddressCityKey: city]
-      let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
-      let mapItem = MKMapItem(placemark: placemark)
-      mapItem.name = title
-      return mapItem
+        let addressDictionary = [CNPostalAddressStreetKey: zip,
+                                   CNPostalAddressCityKey: city]
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = title
+        return mapItem
     }
     
     init(title: String, coordinate: CLLocationCoordinate2D, zip: String, city: String) {

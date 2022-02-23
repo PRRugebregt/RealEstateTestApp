@@ -16,7 +16,6 @@ class LocationManager: NSObject {
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
         locationManager.stopUpdatingLocation()
     }
     
@@ -28,6 +27,9 @@ class LocationManager: NSObject {
     }
     
     func fetchCurrentLocation() {
+        guard locationManager.authorizationStatus != .denied else {
+            return
+        }
         locationManager.requestLocation()
     }
     
@@ -42,6 +44,12 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus == .authorizedWhenInUse {
+            fetchCurrentLocation()
+        }
     }
     
 }

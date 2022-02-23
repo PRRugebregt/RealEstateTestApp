@@ -16,17 +16,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dtt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="jDo-Ks-QUq">
-                                <rect key="frame" x="87" y="389" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dtt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="jDo-Ks-QUq">
+                                <rect key="frame" x="118" y="354.5" width="571" height="197"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXo-NH-CpU">
+                                <rect key="frame" x="309" y="44" width="105" height="818"/>
+                                <color key="backgroundColor" red="0.86087566609999999" green="0.35164897210000001" blue="0.27080775019999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.86087566614151001" green="0.35164897210861834" blue="0.27080775023994125" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.86087566609999999" green="0.35164897210000001" blue="0.27080775019999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.142857" id="3Z2-YQ-sk4"/>
-                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7cZ-gk-Kcw"/>
-                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="LWE-cT-xyo"/>
-                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.57971" id="ej6-BG-N1T"/>
+                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="0GT-NF-52o"/>
+                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="2sh-id-fhj"/>
+                            <constraint firstItem="BXo-NH-CpU" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.253623" id="32R-CU-wAp"/>
+                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.219866" id="Aoq-hH-wYQ"/>
+                            <constraint firstItem="BXo-NH-CpU" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.912946" id="HKa-WJ-Rq9"/>
+                            <constraint firstItem="jDo-Ks-QUq" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1.37923" id="INZ-bM-w6L"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BXo-NH-CpU" secondAttribute="trailing" id="S5z-O0-KfV"/>
+                            <constraint firstItem="BXo-NH-CpU" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="lUY-yq-Sn1"/>
                         </constraints>
                     </view>
                 </viewController>

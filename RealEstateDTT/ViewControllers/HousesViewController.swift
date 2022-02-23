@@ -11,7 +11,13 @@ class HousesViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var housesTableView: UITableView!
-    private var houses = [House]()
+    @IBOutlet weak var noSearchResultsImage: UIImageView!
+    private var filter = Filter()
+    private var houses = [House]() {
+        didSet {
+            houses.sort(by: {$0.price < $1.price})
+        }
+    }
     private var locationManager = LocationManager()
     private var chosenHouse: House?
     private var chosenDistance: Float = 0
@@ -19,24 +25,36 @@ class HousesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+        self.view.backgroundColor = .dttLightGray
+        housesTableView.backgroundColor = .clear
+        tabBarController?.tabBar.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+        searchBar.delegate = self
+        
         housesTableView.delegate = self
         housesTableView.dataSource = self
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         housesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
         housesTableView.rowHeight = 103
-        locationManager.fetchCurrentLocation()
+        
+        locationManager.locationManager.requestWhenInUseAuthorization()
+        if locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+            locationManager.fetchCurrentLocation()
+        }
+        
         checkForCoreDataObjects()
     }
     
+    // When houses haven't been saved to CoreData yet, fetch them from network, else load them from coredata
     func checkForCoreDataObjects() {
         let fetchedObjects = CoreDataManager.shared.fetchHouses()
         guard !fetchedObjects.isEmpty else {
-            print("Coredata empty")
             downloadHouses()
             return
         }
+        print("Loaded from coredata")
         houses = fetchedObjects
+        filter.originalHousesList = houses
         refreshTable()
     }
     
@@ -45,18 +63,21 @@ class HousesViewController: UIViewController {
             self.houses = items
             self.downloadImages()
         }
-        CoreDataManager.shared.saveHouses(houses)
     }
     
+    /* not very elegant but making sure reloadData() only gets called once every image is loaded
+    with count == self.houses.count
+     */
     func downloadImages() {
         var count = 0
         for i in houses.indices {
             network.fetchImage(imagePath: houses[i].imageURL) { imageData in
                 count += 1
                 self.houses[i].imageData = imageData
-                // not very elegant but making sure reloadData() only gets called once every image is loaded
                 if count == self.houses.count {
                     self.refreshTable()
+                    self.filter.originalHousesList = self.houses
+                    CoreDataManager.shared.saveHouses(self.houses)
                 }
             }
         }
@@ -78,6 +99,7 @@ class HousesViewController: UIViewController {
 
 extension HousesViewController: UITableViewDelegate {
     
+    // Saving selected house to property chosenHouse to be used in segue
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         chosenHouse = houses[indexPath.row]
         guard chosenHouse != nil else { return }
@@ -88,6 +110,7 @@ extension HousesViewController: UITableViewDelegate {
 }
 
 extension HousesViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return houses.count
     }
@@ -102,9 +125,10 @@ extension HousesViewController: UITableViewDataSource {
         } else {
             cell.houseImage.image = UIImage(named: "home-2")
         }
-        let priceInDollars = Float(houseForCell.price) / 1000
-        let priceAsString = String(format: "$ %.3f",priceInDollars)
-        cell.priceLabel.text = priceAsString
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let priceString = numberFormatter.string(from: NSNumber(integerLiteral: houseForCell.price))
+        cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
         cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city
         cell.numberOfBathroomLabel.text = String(houseForCell.bathrooms)
         cell.numberOfBedroomLabel.text = String(houseForCell.bedrooms)
@@ -113,5 +137,22 @@ extension HousesViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+extension HousesViewController: UISearchBarDelegate {
+    
+    // Reset search results
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.houses = filter.filter(with: "")
+        refreshTable()
+    }
+    
+    // Filter results with text from searchbar. Hide or unhide noResultsImage based on results.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        houses = filter.filter(with: searchText)
+        noSearchResultsImage.alpha = houses.isEmpty ? 1 : 0
+        refreshTable()
+    }
 }
 

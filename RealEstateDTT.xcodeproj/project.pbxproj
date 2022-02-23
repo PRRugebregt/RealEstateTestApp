@@ -39,6 +39,8 @@
 		0138EE7527C57AD4001A484A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7427C57AD4001A484A /* CoreDataManager.swift */; };
 		0138EE7727C61973001A484A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7627C61973001A484A /* LocationManager.swift */; };
 		0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7827C62E25001A484A /* HouseAnnotation.swift */; };
+		0138EE7B27C6A07A001A484A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7A27C6A07A001A484A /* Filter.swift */; };
+		0138EE7D27C6AA71001A484A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7C27C6AA71001A484A /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		0138EE7427C57AD4001A484A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0138EE7627C61973001A484A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0138EE7827C62E25001A484A /* HouseAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseAnnotation.swift; sourceTree = "<group>"; };
+		0138EE7A27C6A07A001A484A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		0138EE7C27C6AA71001A484A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +158,6 @@
 				0138EE6727C56D93001A484A /* Views */,
 				0138EE2127C55EDC001A484A /* Assets.xcassets */,
 				0138EE2627C55EDC001A484A /* Info.plist */,
-				0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */,
 			);
 			path = RealEstateDTT;
 			sourceTree = "<group>";
@@ -222,6 +225,9 @@
 			children = (
 				0138EE6F27C5753F001A484A /* Houses.swift */,
 				0138EE7827C62E25001A484A /* HouseAnnotation.swift */,
+				0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */,
+				0138EE7A27C6A07A001A484A /* Filter.swift */,
+				0138EE7C27C6AA71001A484A /* Colors.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,12 +387,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0138EE7327C576F6001A484A /* NetworkDownload.swift in Sources */,
+				0138EE7D27C6AA71001A484A /* Colors.swift in Sources */,
 				0138EE6227C56145001A484A /* MainNavigationController.swift in Sources */,
 				0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */,
 				0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */,
 				0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */,
 				0138EE1627C55EDA001A484A /* AppDelegate.swift in Sources */,
 				0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */,
+				0138EE7B27C6A07A001A484A /* Filter.swift in Sources */,
 				0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */,
 				0138EE6D27C572BF001A484A /* InfoViewController.swift in Sources */,
 				0138EE7727C61973001A484A /* LocationManager.swift in Sources */,

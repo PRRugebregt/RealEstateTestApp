@@ -26,6 +26,7 @@ class HouseTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentView.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
