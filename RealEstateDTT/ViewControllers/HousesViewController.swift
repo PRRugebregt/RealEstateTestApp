@@ -16,9 +16,16 @@ class HousesViewController: UIViewController {
     private var houses = [House]() {
         didSet {
             houses.sort(by: {$0.price < $1.price})
+            NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
         }
     }
-    private var locationManager = LocationManager()
+    private var locationManager: LocationManager {
+        get {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            return appDelegate.locationManager
+        }
+        set {}
+    }
     private var chosenHouse: House?
     private var chosenDistance: Float = 0
     var network: NetworkFetchable!
@@ -93,8 +100,22 @@ class HousesViewController: UIViewController {
         let destination = segue.destination as! DetailViewController
         destination.chosenHouse = chosenHouse
         destination.chosenDistance = chosenDistance
+        destination.delegate = self
     }
 
+    // Using description as a unique identifier for now
+    func updateHouse(_ chosenHouse: House, isFavorite: Bool) {
+        for i in houses.indices {
+            if houses[i].descriptionString == chosenHouse.descriptionString {
+                print("Found")
+                houses[i].isFavorite = isFavorite
+                CoreDataManager.shared.updateCoreDataHouse(description: houses[i].descriptionString, isFavorite: isFavorite)
+                NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+                break
+            }
+        }
+    }
+    
 }
 
 extension HousesViewController: UITableViewDelegate {
@@ -125,9 +146,8 @@ extension HousesViewController: UITableViewDataSource {
         } else {
             cell.houseImage.image = UIImage(named: "home-2")
         }
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let priceString = numberFormatter.string(from: NSNumber(integerLiteral: houseForCell.price))
+
+        let priceString = PriceFormatter.shared.formatPrice(houseForCell.price)
         cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
         cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city
         cell.numberOfBathroomLabel.text = String(houseForCell.bathrooms)

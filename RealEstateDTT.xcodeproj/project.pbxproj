@@ -41,6 +41,8 @@
 		0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7827C62E25001A484A /* HouseAnnotation.swift */; };
 		0138EE7B27C6A07A001A484A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7A27C6A07A001A484A /* Filter.swift */; };
 		0138EE7D27C6AA71001A484A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7C27C6AA71001A484A /* Colors.swift */; };
+		0138EE7F27C6AF75001A484A /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE7E27C6AF75001A484A /* PriceFormatter.swift */; };
+		0138EE8127C6B634001A484A /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8027C6B634001A484A /* FavoriteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		0138EE7827C62E25001A484A /* HouseAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseAnnotation.swift; sourceTree = "<group>"; };
 		0138EE7A27C6A07A001A484A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		0138EE7C27C6AA71001A484A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0138EE7E27C6AF75001A484A /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
+		0138EE8027C6B634001A484A /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +190,7 @@
 				0138EE6127C56145001A484A /* MainNavigationController.swift */,
 				0138EE6327C56A97001A484A /* DetailViewController.swift */,
 				0138EE6C27C572BF001A484A /* InfoViewController.swift */,
+				0138EE8027C6B634001A484A /* FavoriteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				0138EE7227C576F6001A484A /* NetworkDownload.swift */,
 				0138EE7427C57AD4001A484A /* CoreDataManager.swift */,
 				0138EE7627C61973001A484A /* LocationManager.swift */,
+				0138EE7E27C6AF75001A484A /* PriceFormatter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -398,7 +404,9 @@
 				0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */,
 				0138EE6D27C572BF001A484A /* InfoViewController.swift in Sources */,
 				0138EE7727C61973001A484A /* LocationManager.swift in Sources */,
+				0138EE8127C6B634001A484A /* FavoriteViewController.swift in Sources */,
 				0138EE7027C5753F001A484A /* Houses.swift in Sources */,
+				0138EE7F27C6AF75001A484A /* PriceFormatter.swift in Sources */,
 				0138EE1827C55EDA001A484A /* SceneDelegate.swift in Sources */,
 				0138EE7527C57AD4001A484A /* CoreDataManager.swift in Sources */,
 			);

@@ -12,14 +12,17 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var houseImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var priceM2Label: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var bedroomLabel: UILabel!
     @IBOutlet weak var bathroomLabel: UILabel!
     @IBOutlet weak var squareMetersLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
     var chosenHouse: House!
+    var delegate: HousesViewController!
     var houseAnnotation: HouseAnnotation {
         let zip = chosenHouse.zip
         let city = chosenHouse.city
@@ -49,9 +52,12 @@ class DetailViewController: UIViewController {
             let image = UIImage(data: imageData)
             houseImage.image = image
         }
-        let priceInDollars = Float(chosenHouse.price) / 1000
-        let priceAsString = String(format: "$ %.3f",priceInDollars)
-        priceLabel.text = priceAsString
+        let buttonImage = chosenHouse.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        favoriteButton.setImage(buttonImage, for: .normal)
+        let priceAsString = PriceFormatter.shared.formatPrice(chosenHouse.price)
+        priceLabel.text = "$\(priceAsString!)"
+        let pricePerM2 = chosenHouse.price / chosenHouse.size
+        priceM2Label.text = "$\(PriceFormatter.shared.formatPrice(pricePerM2)!) per m2"
         descriptionLabel.text = chosenHouse.descriptionString
         bedroomLabel.text = String(chosenHouse.bedrooms)
         bathroomLabel.text = String(chosenHouse.bathrooms)
@@ -74,6 +80,17 @@ class DetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
         self.navigationController?.navigationBar.isHidden = true
     }
+    
+    @IBAction func favoriteButtonPressed(_ sender: UIButton) {
+        chosenHouse.isFavorite.toggle()
+        delegate.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
+        if chosenHouse.isFavorite {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+    
     
 }
 

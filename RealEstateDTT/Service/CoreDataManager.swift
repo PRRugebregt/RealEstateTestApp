@@ -30,7 +30,7 @@ class CoreDataManager {
             for result in result {
                 let house = House(id: Int(bitPattern: result.id),
                                   imageURL: "",
-                                  descriptionString: result.description,
+                                  descriptionString: result.descriptionString!,
                                   zip: result.zip!,
                                   city: result.city!,
                                   price: Int(result.price),
@@ -77,6 +77,24 @@ class CoreDataManager {
             print("saving house")
         }
         saveContext()
+    }
+    
+    func updateCoreDataHouse(description: String, isFavorite: Bool) {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HouseCoreData")
+        request.predicate = NSPredicate(format: "descriptionString = '\(description)'")
+        do {
+            let result = try context.fetch(request)
+            let resultData = result as! [HouseCoreData]
+            print(resultData)
+            for object in resultData {
+                if object.descriptionString == description {
+                    object.setValue(isFavorite, forKey: "isFavorite")
+                }
+            }
+        } catch {
+            print(error)
+        }
     }
     
 }

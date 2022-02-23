@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 struct Houses: Codable {
+    
     var all: [House]
+    
 }
 
 struct House: Codable, Identifiable {
@@ -26,6 +28,7 @@ struct House: Codable, Identifiable {
     let latitude: Double
     let longitude: Double
     var imageData: Data?
+    var isFavorite = false
     
     enum CodingKeys: String, CodingKey {
         case id
