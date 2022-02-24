@@ -12,10 +12,10 @@ class Filter {
     var originalHousesList = [House]()
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateFavorites(_:)), name: .updateHouses, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
     }
     
-    @objc func updateFavorites(_ notification: Notification) {
+    @objc func updateHouses(_ notification: Notification) {
         print("received data")
         if let houses = notification.userInfo?["houses"] as? [House] {
             originalHousesList = houses

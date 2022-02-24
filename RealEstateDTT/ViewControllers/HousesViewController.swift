@@ -8,7 +8,7 @@
 import UIKit
 
 class HousesViewController: UIViewController {
-
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var housesTableView: UITableView!
     @IBOutlet weak var noSearchResultsImage: UIImageView!
@@ -18,7 +18,6 @@ class HousesViewController: UIViewController {
     private var chosenDistance: Float = 0
     private var houses = [House]() {
         didSet {
-            print("Received")
             houses.sort(by: {$0.price < $1.price})
             refreshTable()
         }
@@ -34,6 +33,8 @@ class HousesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
+        let favoriteController = self.tabBarController?.viewControllers?[2] as! FavoriteViewController
+        favoriteController.houseManager = houseManager
         setupUI()
         
         searchBar.delegate = self
@@ -43,12 +44,20 @@ class HousesViewController: UIViewController {
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         housesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
         housesTableView.rowHeight = 110
-        
-        askForLocationUse()
+        if locationManager.locationManager.authorizationStatus == .denied || locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+            locationManager.fetchCurrentLocation()
+            loadData()
+        } else {
+            askForLocationUse()
+        }
+    }
+    
+    func loadData() {
         houseManager.checkForCoreDataObjects()
     }
     
     func setupUI() {
+        locationManager.delegate = self
         housesTableView.backgroundColor = .clear
         tabBarController?.tabBar.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
@@ -56,14 +65,12 @@ class HousesViewController: UIViewController {
     
     func askForLocationUse() {
         locationManager.locationManager.requestWhenInUseAuthorization()
-        if locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
-            locationManager.fetchCurrentLocation()
-        }
+        locationManager.fetchCurrentLocation()
     }
     
     // Responding to notification posted by HouseManager
     @objc func updateHouses(_ notification: Notification) {
-        print("received data in housesviewcontroller")
+        print("received notification in housesviewcontroller")
         if let houses = notification.userInfo?["houses"] as? [House] {
             self.houses = houses
         }
@@ -71,6 +78,7 @@ class HousesViewController: UIViewController {
     
     func refreshTable() {
         DispatchQueue.main.async {
+            self.locationManager.fetchCurrentLocation()
             self.housesTableView.reloadData()
         }
     }
@@ -92,7 +100,7 @@ extension HousesViewController: UITableViewDelegate {
         chosenHouse = houses[indexPath.row]
         guard chosenHouse != nil else { return }
         chosenDistance = locationManager.calculateDistance(latitude: chosenHouse!.latitude, longitude: chosenHouse!.longitude)
-        performSegue(withIdentifier: "showDetail", sender: self)
+        performSegue(withIdentifier: "housesToDetail", sender: self)
     }
     
 }
@@ -104,23 +112,7 @@ extension HousesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "houseTableViewCell") as! HouseTableViewCell
-        let houseForCell = houses[indexPath.row]
-        let distanceToUser = locationManager.calculateDistance(latitude: houseForCell.latitude,
-                                                               longitude: houseForCell.longitude)
-        if let imageData = houseForCell.imageData {
-            cell.houseImage.image = UIImage(data: imageData)
-        } else {
-            cell.houseImage.image = UIImage(named: "home-2")
-        }
-        let priceString = PriceFormatter.shared.formatPrice(houseForCell.price)
-        cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
-        cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city
-        cell.numberOfBathroomLabel.text = String(houseForCell.bathrooms)
-        cell.numberOfBedroomLabel.text = String(houseForCell.bedrooms)
-        cell.distanceLabel.text = String(distanceToUser)
-        cell.squareMetersLabel.text = String(houseForCell.size)
-        return cell
+        return UITableViewCell.createCustomHouseCell(for: tableView, houses: houses, locationManager: locationManager, row: indexPath.row)
     }
     
 }

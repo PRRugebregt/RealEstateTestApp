@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 class DetailViewController: UIViewController {
-
+    
     @IBOutlet weak var houseImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var priceM2Label: UILabel!
@@ -37,13 +37,16 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(chosenHouse.isFavorite)
         navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.backgroundColor = .clear
+        descriptionLabel.adjustsFontSizeToFitWidth = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(popDetailView))
         self.navigationItem.leftBarButtonItem?.tintColor = .white
         setupUI()
         setupMap()
         mapView.delegate = self
-
+        
     }
     
     // Making sure to display all the information of chosenHouse
@@ -63,7 +66,8 @@ class DetailViewController: UIViewController {
         bedroomLabel.text = String(chosenHouse.bedrooms)
         bathroomLabel.text = String(chosenHouse.bathrooms)
         squareMetersLabel.text = String(chosenHouse.size)
-        distanceLabel.text = String(chosenDistance / 1000)
+        let distance = chosenDistance / 1000
+        distanceLabel.text = String(format: "%.2f", distance)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
     }
     
@@ -76,7 +80,7 @@ class DetailViewController: UIViewController {
         mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 1000), animated: true)
         mapView.addAnnotation(houseAnnotation)
     }
-
+    
     // Method to pop viewcontroller when custom back button is pressed
     @objc func popDetailView() {
         print("called")
@@ -112,7 +116,10 @@ extension DetailViewController: MKMapViewDelegate {
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let button = UIButton(type: .detailDisclosure)
+            button.setImage(UIImage(named: "finish"), for: .normal)
+            button.tintColor = .blue
+            view.rightCalloutAccessoryView = button
         }
         return view
     }

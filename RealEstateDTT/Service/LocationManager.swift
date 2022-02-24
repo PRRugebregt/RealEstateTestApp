@@ -12,11 +12,11 @@ class LocationManager: NSObject {
     
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
+    var delegate: HousesViewController?
     
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.stopUpdatingLocation()
     }
     
     // Calculate distance from user location to house with coordinates
@@ -28,19 +28,20 @@ class LocationManager: NSObject {
     }
     
     func fetchCurrentLocation() {
-        guard locationManager.authorizationStatus != .denied else {
-            return
-        }
         locationManager.requestLocation()
+        if locationManager.authorizationStatus == .denied {
+            currentLocation = CLLocation(latitude: 50, longitude: 50)
+        }
     }
     
 }
 
 extension LocationManager: CLLocationManagerDelegate {
-    
+        
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard locations.count > 0 else { return }
         currentLocation = locations[0]
+        delegate?.refreshTable()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -48,9 +49,8 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if manager.authorizationStatus == .authorizedWhenInUse {
-            fetchCurrentLocation()
-        }
+        fetchCurrentLocation()
+        delegate?.loadData()
     }
     
 }

@@ -10,6 +10,9 @@ import UIKit
 class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var favoritesTableView: UITableView!
+    private var chosenHouse: House?
+    private var chosenDistance: Float = 0
+    var houseManager: HouseManager!
     // Using same locationManager to avoid 2 locationManagers
     private var locationManager: LocationManager {
         get {
@@ -22,8 +25,8 @@ class FavoriteViewController: UIViewController {
     // not yet subscribed to the notification
     var favoriteHouses : [House] {
         get {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.houses.filter({$0.isFavorite})
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            return appDelegate.houses.filter({$0.isFavorite})
         }
         set{}
     }
@@ -48,16 +51,30 @@ class FavoriteViewController: UIViewController {
     
     // Responding to Notification from HouseManager. Filtering results for favorites list.
     @objc func updateFavorites(_ notification: Notification) {
-        print("received data")
+        print("received notification in favoritesViewController")
         if let houses = notification.userInfo?["houses"] as? [House] {
             favoriteHouses = houses.filter({$0.isFavorite})
             print(favoriteHouses.count)
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! DetailViewController
+        destination.chosenHouse = chosenHouse
+        destination.chosenDistance = chosenDistance
+        destination.houseManager = houseManager
+    }
+    
 }
 
 extension FavoriteViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        chosenHouse = favoriteHouses[indexPath.row]
+        guard chosenHouse != nil else { return }
+        chosenDistance = locationManager.calculateDistance(latitude: chosenHouse!.latitude, longitude: chosenHouse!.longitude)
+        performSegue(withIdentifier: "favoritesToDetail", sender: self)
+    }
     
 }
 
@@ -68,28 +85,8 @@ extension FavoriteViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "houseTableViewCell") as! HouseTableViewCell
-        let houseForCell = favoriteHouses[indexPath.row]
-        let distanceToUser = locationManager.calculateDistance(latitude: houseForCell.latitude,
-                                                               longitude: houseForCell.longitude)
-        if let imageData = houseForCell.imageData {
-            cell.houseImage.image = UIImage(data: imageData)
-        } else {
-            cell.houseImage.image = UIImage(named: "home-2")
-        }
-
-        let priceString = PriceFormatter.shared.formatPrice(houseForCell.price)
-        cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
-        cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city
-        cell.numberOfBathroomLabel.text = String(houseForCell.bathrooms)
-        cell.numberOfBedroomLabel.text = String(houseForCell.bedrooms)
-        cell.distanceLabel.text = String(distanceToUser)
-        cell.squareMetersLabel.text = String(houseForCell.size)
-        return cell
+        return UITableViewCell.createCustomHouseCell(for: tableView, houses: favoriteHouses, locationManager: locationManager, row: indexPath.row)
     }
     
 }
 
-extension Notification.Name {
-    static let updateHouses = Notification.Name(rawValue: "updateHouses")
-}

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Updating houses to distribute to FavoritesViewController
     @objc func updateHouses(_ notification: Notification) {
-        print("received data App Delegate")
+        print("received Notification in App Delegate")
         if let houses = notification.userInfo?["houses"] as? [House] {
             self.houses = houses
         }
