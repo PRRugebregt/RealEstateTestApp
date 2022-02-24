@@ -113,6 +113,7 @@
 		0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatterTests.swift; sourceTree = "<group>"; };
 		0138EE8B27C71177001A484A /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +164,7 @@
 		0138EE1427C55EDA001A484A /* RealEstateDTT */ = {
 			isa = PBXGroup;
 			children = (
+				0138EE8F27C7918A001A484A /* Log */,
 				0138EE8A27C71161001A484A /* Extensions */,
 				0138EE6E27C57436001A484A /* Model */,
 				0138EE7127C576E0001A484A /* Service */,
@@ -269,6 +271,14 @@
 				0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0138EE8F27C7918A001A484A /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
