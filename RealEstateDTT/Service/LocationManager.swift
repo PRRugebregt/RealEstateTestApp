@@ -12,7 +12,7 @@ class LocationManager: NSObject {
     
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
-    var delegate: HousesViewController?
+    var houseViewController: HousesViewController?
     
     override init() {
         super.init()
@@ -41,7 +41,7 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard locations.count > 0 else { return }
         currentLocation = locations[0]
-        delegate?.refreshTable()
+        houseViewController?.refreshTable()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -50,7 +50,7 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         fetchCurrentLocation()
-        delegate?.loadData()
+        houseViewController?.loadData()
     }
     
 }

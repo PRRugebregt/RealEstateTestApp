@@ -19,7 +19,6 @@ extension UITableViewCell {
         } else {
             cell.houseImage.image = UIImage(named: "home-2")
         }
-
         let priceString = PriceFormatter.shared.formatPrice(houseForCell.price)
         cell.priceLabel.text = "$\(priceString!)" // Formatted as (1,000,000)
         cell.addressLabel.text = houseForCell.zip + " " + houseForCell.city

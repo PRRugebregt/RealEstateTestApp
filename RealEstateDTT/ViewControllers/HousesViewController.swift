@@ -37,13 +37,15 @@ class HousesViewController: UIViewController {
         favoriteController.houseManager = houseManager
         setupUI()
         
+        locationManager.houseViewController = self
         searchBar.delegate = self
         
         housesTableView.delegate = self
         housesTableView.dataSource = self
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         housesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
-        housesTableView.rowHeight = 110
+        housesTableView.rowHeight = 140
+        
         if locationManager.locationManager.authorizationStatus == .denied || locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
             locationManager.fetchCurrentLocation()
             loadData()
@@ -57,8 +59,8 @@ class HousesViewController: UIViewController {
     }
     
     func setupUI() {
-        locationManager.delegate = self
         housesTableView.backgroundColor = .clear
+        housesTableView.separatorStyle = .none
         tabBarController?.tabBar.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
     }
@@ -113,6 +115,10 @@ extension HousesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell.createCustomHouseCell(for: tableView, houses: houses, locationManager: locationManager, row: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = .clear
     }
     
 }
