@@ -26,6 +26,7 @@ class HouseTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
         self.frame.size.height = 100
         houseImage.layer.masksToBounds = true
         houseImage.layer.cornerRadius = 10
@@ -38,11 +39,6 @@ class HouseTableViewCell: UITableViewCell {
         backgroundView?.alpha = 0
         contentView.backgroundColor = .clear
         self.layoutIfNeeded()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
     }
     
 }

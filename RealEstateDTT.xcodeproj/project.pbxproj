@@ -48,6 +48,11 @@
 		0138EE8927C6D80F001A484A /* PriceFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */; };
 		0138EE8C27C71177001A484A /* NotificationNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8B27C71177001A484A /* NotificationNameExtensions.swift */; };
 		0138EE8E27C7130B001A484A /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */; };
+		01A8834D27CE72E60076BC1C /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8834C27CE72E60076BC1C /* UIViewExtensions.swift */; };
+		01A8834F27CE7F150076BC1C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8834E27CE7F150076BC1C /* Constants.swift */; };
+		01A8835227CE86E50076BC1C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835127CE86E50076BC1C /* RootViewController.swift */; };
+		01A8835427CE89390076BC1C /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835327CE89390076BC1C /* Dependencies.swift */; };
+		01A8835C27CEC06D0076BC1C /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +119,11 @@
 		0138EE8B27C71177001A484A /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
+		01A8834C27CE72E60076BC1C /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		01A8834E27CE7F150076BC1C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		01A8835127CE86E50076BC1C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		01A8835327CE89390076BC1C /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +178,7 @@
 				0138EE8A27C71161001A484A /* Extensions */,
 				0138EE6E27C57436001A484A /* Model */,
 				0138EE7127C576E0001A484A /* Service */,
+				01A8835027CE80650076BC1C /* ViewModels */,
 				0138EE6527C56D71001A484A /* ViewControllers */,
 				0138EE6727C56D93001A484A /* Views */,
 				0138EE6627C56D84001A484A /* Resources */,
@@ -205,6 +216,7 @@
 				0138EE6327C56A97001A484A /* DetailViewController.swift */,
 				0138EE6C27C572BF001A484A /* InfoViewController.swift */,
 				0138EE8027C6B634001A484A /* FavoriteViewController.swift */,
+				01A8835127CE86E50076BC1C /* RootViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -246,6 +258,8 @@
 				0138EE7827C62E25001A484A /* HouseAnnotation.swift */,
 				0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */,
 				0138EE7A27C6A07A001A484A /* Filter.swift */,
+				01A8834E27CE7F150076BC1C /* Constants.swift */,
+				01A8835327CE89390076BC1C /* Dependencies.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,7 +271,6 @@
 				0138EE7427C57AD4001A484A /* CoreDataManager.swift */,
 				0138EE7627C61973001A484A /* LocationManager.swift */,
 				0138EE7E27C6AF75001A484A /* PriceFormatter.swift */,
-				0138EE8227C6C718001A484A /* HouseManager.swift */,
 				0138EE8427C6D2B1001A484A /* MockNetwork.swift */,
 			);
 			path = Service;
@@ -269,6 +282,7 @@
 				0138EE8B27C71177001A484A /* NotificationNameExtensions.swift */,
 				0138EE7C27C6AA71001A484A /* ColorExtensions.swift */,
 				0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */,
+				01A8834C27CE72E60076BC1C /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,6 +293,15 @@
 				0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
 			);
 			path = Log;
+			sourceTree = "<group>";
+		};
+		01A8835027CE80650076BC1C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0138EE8227C6C718001A484A /* HouseManager.swift */,
+				01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,9 +449,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0138EE7327C576F6001A484A /* NetworkDownload.swift in Sources */,
+				01A8834F27CE7F150076BC1C /* Constants.swift in Sources */,
 				0138EE7D27C6AA71001A484A /* ColorExtensions.swift in Sources */,
 				0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */,
 				0138EE8327C6C718001A484A /* HouseManager.swift in Sources */,
+				01A8835C27CEC06D0076BC1C /* FavoritesViewModel.swift in Sources */,
 				0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */,
 				0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */,
 				0138EE8527C6D2B1001A484A /* MockNetwork.swift in Sources */,
@@ -436,7 +461,10 @@
 				0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */,
 				0138EE7B27C6A07A001A484A /* Filter.swift in Sources */,
 				0138EE6A27C56DAE001A484A /* HouseTableViewCell.swift in Sources */,
+				01A8835427CE89390076BC1C /* Dependencies.swift in Sources */,
+				01A8835227CE86E50076BC1C /* RootViewController.swift in Sources */,
 				0138EE6D27C572BF001A484A /* InfoViewController.swift in Sources */,
+				01A8834D27CE72E60076BC1C /* UIViewExtensions.swift in Sources */,
 				0138EE7727C61973001A484A /* LocationManager.swift in Sources */,
 				0138EE8127C6B634001A484A /* FavoriteViewController.swift in Sources */,
 				0138EE7027C5753F001A484A /* Houses.swift in Sources */,

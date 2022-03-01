@@ -22,22 +22,21 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var chosenHouse: House!
-    var houseManager: HouseManager!
+    var houseManager: HouseManager?
     var houseAnnotation: HouseAnnotation {
-        let zip = chosenHouse.zip
-        let city = chosenHouse.city
-        let coordinate = CLLocationCoordinate2D(latitude: chosenHouse.latitude,
-                                                longitude: chosenHouse.longitude)
-        return HouseAnnotation(title: "\(city), \(zip)",
-                               coordinate: coordinate,
-                               zip: zip,
-                               city: city)
+            let zip = chosenHouse.zip
+            let city = chosenHouse.city
+            let coordinate = CLLocationCoordinate2D(latitude: chosenHouse.latitude,
+                                                    longitude: chosenHouse.longitude)
+            return HouseAnnotation(title: "\(city), \(zip)",
+                                   coordinate: coordinate,
+                                   zip: zip,
+                                   city: city)
     }
     var chosenDistance: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(chosenHouse.isFavorite)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = .clear
         descriptionLabel.adjustsFontSizeToFitWidth = true
@@ -51,48 +50,52 @@ class DetailViewController: UIViewController {
     
     // Making sure to display all the information of chosenHouse
     func setupUI() {
-        self.view.backgroundColor = .dttLightGray
-        if let imageData = chosenHouse.imageData {
-            let image = UIImage(data: imageData)
-            houseImage.image = image
+        if let chosenHouse = chosenHouse {
+            self.view.backgroundColor = .dttLightGray
+            let pricePerM2 = PriceFormatter.shared.formatPrice(chosenHouse.price / chosenHouse.size) ?? "0"
+            let priceAsString = PriceFormatter.shared.formatPrice(chosenHouse.price) ?? "0"
+            if let imageData = chosenHouse.imageData {
+                let image = UIImage(data: imageData)
+                houseImage.image = image
+            }
+            let buttonImage = chosenHouse.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+            favoriteButton.setImage(buttonImage, for: .normal)
+            priceLabel.text = "$\(priceAsString)"
+            priceM2Label.text = "$\(pricePerM2) per m2"
+            descriptionLabel.text = chosenHouse.descriptionString
+            bedroomLabel.text = String(chosenHouse.bedrooms)
+            bathroomLabel.text = String(chosenHouse.bathrooms)
+            squareMetersLabel.text = String(chosenHouse.size)
+            let distance = chosenDistance / 1000
+            distanceLabel.text = String(format: "%.2f", distance)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
         }
-        let buttonImage = chosenHouse.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        favoriteButton.setImage(buttonImage, for: .normal)
-        let priceAsString = PriceFormatter.shared.formatPrice(chosenHouse.price)
-        priceLabel.text = "$\(priceAsString!)"
-        let pricePerM2 = chosenHouse.price / chosenHouse.size
-        priceM2Label.text = "$\(PriceFormatter.shared.formatPrice(pricePerM2)!) per m2"
-        descriptionLabel.text = chosenHouse.descriptionString
-        bedroomLabel.text = String(chosenHouse.bedrooms)
-        bathroomLabel.text = String(chosenHouse.bathrooms)
-        squareMetersLabel.text = String(chosenHouse.size)
-        let distance = chosenDistance / 1000
-        distanceLabel.text = String(format: "%.2f", distance)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
     }
     
     // Zooming on the house Location
     func setupMap() {
-        let center = CLLocationCoordinate2D(latitude: Double(chosenHouse.latitude), longitude: Double(chosenHouse.longitude))
+        let center = CLLocationCoordinate2D(latitude: houseAnnotation.coordinate.latitude, longitude: houseAnnotation.coordinate.longitude)
         mapView.centerCoordinate = center
-        let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 1500, longitudinalMeters: 1500)
         mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
-        mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 1000), animated: true)
+        mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 1500), animated: false)
         mapView.addAnnotation(houseAnnotation)
     }
     
     // Method to pop viewcontroller when custom back button is pressed
     @objc func popDetailView() {
-        print("called")
         self.navigationController?.popViewController(animated: true)
         self.navigationController?.navigationBar.isHidden = true
     }
     
     // Saving chosenHouse in favorite list by toggling isFavorite property.
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        chosenHouse.isFavorite.toggle()
-        houseManager.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
-        if chosenHouse.isFavorite {
+        guard chosenHouse != nil else {
+            return
+        }
+        self.chosenHouse!.isFavorite.toggle()
+        houseManager?.updateHouse(chosenHouse!, isFavorite: chosenHouse!.isFavorite)
+        if self.chosenHouse!.isFavorite {
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -107,7 +110,7 @@ extension DetailViewController: MKMapViewDelegate {
     // Creating mapView with address as title.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? HouseAnnotation else { return nil }
-        let identifier = "house"
+        let identifier = Constants.houseIdentifier
         var view: MKMarkerAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
             dequeuedView.annotation = annotation

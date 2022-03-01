@@ -8,11 +8,16 @@
 import Foundation
 import CoreLocation
 
-class LocationManager: NSObject {
+protocol LocationManageable {
+    func calculateDistance(latitude: Double, longitude: Double) -> Float
+    func checkForLocationPermission()
+    var currentLocation: CLLocation { get set }
+}
+
+class LocationManager: NSObject, LocationManageable {
     
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
-    var houseViewController: HousesViewController?
     
     override init() {
         super.init()
@@ -27,6 +32,15 @@ class LocationManager: NSObject {
         return distanceFloat
     }
     
+    // Ask user permission to use location. When either denied or authorized fetch current location.
+    func checkForLocationPermission() {
+        if locationManager.authorizationStatus == .denied || locationManager.authorizationStatus == .authorizedWhenInUse {
+            fetchCurrentLocation()
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
     func fetchCurrentLocation() {
         locationManager.requestLocation()
         if locationManager.authorizationStatus == .denied {
@@ -38,10 +52,11 @@ class LocationManager: NSObject {
 
 extension LocationManager: CLLocationManagerDelegate {
         
+    // Posting notification to load and refresh houses in HousesViewController
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard locations.count > 0 else { return }
         currentLocation = locations[0]
-        houseViewController?.refreshTable()
+        NotificationCenter.default.post(name: .refreshData, object: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -50,7 +65,6 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         fetchCurrentLocation()
-        houseViewController?.loadData()
     }
     
 }

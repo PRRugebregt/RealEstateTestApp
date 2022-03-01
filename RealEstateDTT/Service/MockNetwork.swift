@@ -9,9 +9,6 @@ import UIKit
 
 class MockNetwork: NetworkFetchable {
     
-    let urlString = "https://intern.docker-dev.d-tt.nl/api/house"
-    let accessKey = "98bww4ezuzfePCYFxJEWyszbUXc7dxRx"
-    
     var data: Data? {
         let jsonEncoder = JSONEncoder()
         do {
@@ -35,11 +32,9 @@ class MockNetwork: NetworkFetchable {
     
     func fetchFromApi(completionHandler: @escaping (_ items: [House]) -> Void) {
         print("Network call started")
-
                 self.decodeData(from: data!) { items in
                     completionHandler(items)
                 }
-        
     }
     
     func decodeData(from data: Data, completionHandler: (_ items: [House]) -> Void) {

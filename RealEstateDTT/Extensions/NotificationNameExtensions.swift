@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let updateHouses = Notification.Name(rawValue: "updateHouses")
+    static let refreshData = Notification.Name(rawValue: "refreshData")
 }

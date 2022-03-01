@@ -14,19 +14,16 @@ protocol NetworkFetchable {
 
 class NetworkDownload: NetworkFetchable {
     
-    let urlString = "https://intern.docker-dev.d-tt.nl/api/house"
-    let accessKey = "98bww4ezuzfePCYFxJEWyszbUXc7dxRx"
-    
     func fetchFromApi(completionHandler: @escaping (_ items: [House]) -> Void) {
         print("Network call started")
         let session = URLSession.shared
-        let url = URL(string: urlString)
+        let url = URL(string: Constants.url)
         guard url != nil else {
             print("URL = nil")
             return
         }
         var request = URLRequest(url: url!)
-        request.addValue(accessKey, forHTTPHeaderField: "Access-Key")
+        request.addValue(Constants.accessKey, forHTTPHeaderField: "Access-Key")
         request.httpMethod = "GET"
         session.dataTask(with: request) { data, response, error in
             guard error == nil else {
@@ -55,10 +52,10 @@ class NetworkDownload: NetworkFetchable {
     
     func fetchImage(imagePath: String, completionHandler: @escaping (_ imageData: Data) -> Void) {
         let session = URLSession(configuration: .default)
-        let url = URL(string: self.urlString)!
+        let url = URL(string: Constants.url)!
         let relativeUrl = URL(string: imagePath, relativeTo: url)
         var request = URLRequest(url: relativeUrl!)
-        request.addValue(accessKey, forHTTPHeaderField: "Access-Key")
+        request.addValue(Constants.accessKey, forHTTPHeaderField: "Access-Key")
         request.httpMethod = "GET"
         session.dataTask(with: request) { data, response, error in
             guard error == nil else {

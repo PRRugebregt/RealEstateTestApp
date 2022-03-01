@@ -12,28 +12,14 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var favoritesTableView: UITableView!
     private var chosenHouse: House?
     private var chosenDistance: Float = 0
+    private var favoritesViewModel = FavoritesViewModel()
+    /// Property dependency Injection by RootViewcontroller
     var houseManager: HouseManager!
-    // Using same locationManager to avoid 2 locationManagers
-    private var locationManager: LocationManager {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.locationManager
-        }
-        set {}
-    }
-    // Fetching houses from AppDelegate the first time, since this class is
-    // not yet subscribed to the notification
-    var favoriteHouses : [House] {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.houses.filter({$0.isFavorite})
-        }
-        set{}
-    }
+    var locationManager: LocationManageable!
+    var favoriteHouses : [House] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateFavorites(_:)), name: .updateHouses, object: nil)
         favoritesTableView.delegate = self
         favoritesTableView.dataSource = self
         favoritesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
@@ -45,16 +31,8 @@ class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         DispatchQueue.main.async {
+            self.favoriteHouses = self.favoritesViewModel.houses
             self.favoritesTableView.reloadData()
-        }
-    }
-    
-    // Responding to Notification from HouseManager. Filtering results for favorites list.
-    @objc func updateFavorites(_ notification: Notification) {
-        print("received notification in favoritesViewController")
-        if let houses = notification.userInfo?["houses"] as? [House] {
-            favoriteHouses = houses.filter({$0.isFavorite})
-            print(favoriteHouses.count)
         }
     }
     

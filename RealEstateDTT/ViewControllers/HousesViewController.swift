@@ -12,32 +12,30 @@ class HousesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var housesTableView: UITableView!
     @IBOutlet weak var noSearchResultsImage: UIImageView!
-    private let houseManager = HouseManager(network: NetworkDownload())
-    private let filter = Filter()
+    /// property dependency injection by rootviewcontroller
+    var locationManager: LocationManageable?
+    var houseManager: HouseManager?
     private var chosenHouse: House?
     private var chosenDistance: Float = 0
     private var houses = [House]() {
         didSet {
             houses.sort(by: {$0.price < $1.price})
             refreshTable()
+            DispatchQueue.main.async {
+                self.noSearchResultsImage.alpha = self.houses.isEmpty ? 1 : 0
+            }
         }
     }
-    private var locationManager: LocationManager {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.locationManager
-        }
-        set {}
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .refreshData, object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
-        let favoriteController = self.tabBarController?.viewControllers?[2] as! FavoriteViewController
-        favoriteController.houseManager = houseManager
         setupUI()
-        
-        locationManager.houseViewController = self
         searchBar.delegate = self
         
         housesTableView.delegate = self
@@ -45,17 +43,6 @@ class HousesViewController: UIViewController {
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
         housesTableView.dequeueReusableCell(withIdentifier: "houseTableViewCell")
         housesTableView.rowHeight = 140
-        
-        if locationManager.locationManager.authorizationStatus == .denied || locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
-            locationManager.fetchCurrentLocation()
-            loadData()
-        } else {
-            askForLocationUse()
-        }
-    }
-    
-    func loadData() {
-        houseManager.checkForCoreDataObjects()
     }
     
     func setupUI() {
@@ -63,11 +50,6 @@ class HousesViewController: UIViewController {
         housesTableView.separatorStyle = .none
         tabBarController?.tabBar.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    func askForLocationUse() {
-        locationManager.locationManager.requestWhenInUseAuthorization()
-        locationManager.fetchCurrentLocation()
     }
     
     // Responding to notification posted by HouseManager
@@ -78,19 +60,20 @@ class HousesViewController: UIViewController {
         }
     }
     
-    func refreshTable() {
+    // Reloading table when locationManager auth changes, or houses change.
+    @objc func refreshTable() {
         DispatchQueue.main.async {
-            self.locationManager.fetchCurrentLocation()
             self.housesTableView.reloadData()
         }
     }
     
     // Preparing for segue to detail view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! DetailViewController
-        destination.chosenHouse = chosenHouse
-        destination.chosenDistance = chosenDistance
-        destination.houseManager = houseManager
+        if let destination = segue.destination as? DetailViewController, let chosenHouse = houseManager?.chosenHouse {
+            destination.chosenHouse = chosenHouse
+            destination.chosenDistance = houseManager?.chosenDistance ?? 0
+            destination.houseManager = houseManager
+        }
     }
     
 }
@@ -99,9 +82,8 @@ extension HousesViewController: UITableViewDelegate {
     
     // Saving selected house to property chosenHouse to be used in segue
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        chosenHouse = houses[indexPath.row]
-        guard chosenHouse != nil else { return }
-        chosenDistance = locationManager.calculateDistance(latitude: chosenHouse!.latitude, longitude: chosenHouse!.longitude)
+        houseManager?.chooseHouse(houses[indexPath.row])
+        guard houseManager?.chosenHouse != nil else { return }
         performSegue(withIdentifier: "housesToDetail", sender: self)
     }
     
@@ -128,15 +110,19 @@ extension HousesViewController: UISearchBarDelegate {
     // Reset search results
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        self.houses = filter.filter(with: "")
+        houseManager?.filter(with: "")
         refreshTable()
     }
     
     // Filter results with text from searchbar. Hide or unhide noResultsImage based on results.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        houses = filter.filter(with: searchText)
-        noSearchResultsImage.alpha = houses.isEmpty ? 1 : 0
+        houseManager?.filter(with: searchText)
         refreshTable()
+    }
+    
+    // Dismiss keyboard after return
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

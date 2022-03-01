@@ -8,27 +8,43 @@
 import Foundation
 
 class HouseManager {
-    
+
+    let locationManager: LocationManageable
     let network: NetworkFetchable
+    private let houseSaveableToDisk: HouseSaveableToDisk
+    private let houseFetchableFromDisk: HouseFetchableFromDisk
+    private let filter = Filter()
+    var chosenHouse: House?
+    var chosenDistance: Float = 0
+    
     private var houses = [House]() {
         didSet {
             NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
         }
     }
     
-    init(network: NetworkFetchable) {
+    init(network: NetworkFetchable,
+         locationManager: LocationManageable,
+         houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager(),
+         houseFetchableFromDisk: HouseFetchableFromDisk = CoreDataManager()) {
+        self.houseSaveableToDisk = houseSaveableToDisk
+        self.houseFetchableFromDisk = houseFetchableFromDisk
+        self.locationManager = locationManager
         self.network = network
+        checkForCoreDataObjects()
+        locationManager.checkForLocationPermission()
     }
     
     // When houses haven't been saved to CoreData yet, fetch them from network, else load them from coredata
     func checkForCoreDataObjects() {
-        let fetchedObjects = CoreDataManager.shared.fetchHouses()
+        let fetchedObjects = houseFetchableFromDisk.fetchHouses()
         guard !fetchedObjects.isEmpty else {
             downloadHouses()
             return
         }
         print("Loaded from coredata")
         houses = fetchedObjects
+        print(houses)
     }
     
     func downloadHouses() {
@@ -48,7 +64,7 @@ class HouseManager {
                 count += 1
                 self.houses[i].imageData = imageData
                 if count == self.houses.count {
-                    CoreDataManager.shared.saveHouses(self.houses)
+                    self.houseSaveableToDisk.saveHouses(self.houses)
                 }
             }
         }
@@ -60,10 +76,21 @@ class HouseManager {
             if houses[i].descriptionString == chosenHouse.descriptionString {
                 print("Found")
                 houses[i].isFavorite = isFavorite
-                CoreDataManager.shared.updateCoreDataHouse(description: houses[i].descriptionString, isFavorite: isFavorite)
+                houseSaveableToDisk.updateCoreDataHouse(descriptionString: houses[i].descriptionString, isFavorite: isFavorite)
                 break
             }
         }
+    }
+    
+    // filter houses by query
+    func filter(with query: String) {
+        houses = filter.filter(with: query)
+    }
+    
+    func chooseHouse(_ house: House) {
+        chosenHouse = house
+        chosenDistance = locationManager.calculateDistance(latitude: house.latitude,
+                                                            longitude: house.longitude)
     }
     
 }

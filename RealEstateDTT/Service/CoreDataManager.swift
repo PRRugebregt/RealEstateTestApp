@@ -8,9 +8,18 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
+protocol HouseSaveableToDisk {
+    func saveHouses(_ houses: [House])
+    func updateCoreDataHouse(descriptionString: String, isFavorite: Bool)
+}
+
+protocol HouseFetchableFromDisk {
+    func fetchHouses() -> [House]
+}
+
+class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
     
-    static let shared = CoreDataManager()
+//    static let shared = CoreDataManager()
     lazy var persistentContainer: NSPersistentContainer = {
 
         let container = NSPersistentContainer(name: "RealEstateDTT")
@@ -29,7 +38,7 @@ class CoreDataManager {
             var houses = [House]()
             for result in result {
                 let house = House(id: Int(bitPattern: result.id),
-                                  imageURL: "",
+                                  imageURL: result.imageURL!,
                                   descriptionString: result.descriptionString!,
                                   zip: result.zip!,
                                   city: result.city!,
@@ -39,7 +48,9 @@ class CoreDataManager {
                                   size: Int(result.size),
                                   latitude: Double(result.latitude),
                                   longitude: Double(result.longitude),
-                                  imageData: result.image)
+                                  imageData: result.image,
+                                  isFavorite: result.isFavorite)
+                    
                 houses.append(house)
             }
             return houses
@@ -74,21 +85,26 @@ class CoreDataManager {
             houseCoreData.descriptionString = house.descriptionString
             houseCoreData.price = Int64(house.price)
             houseCoreData.size = Int16(house.size)
+            houseCoreData.imageURL = house.imageURL
             print("saving house")
         }
         saveContext()
     }
     
     // Update if house is saved as favorite
-    func updateCoreDataHouse(description: String, isFavorite: Bool) {
+    func updateCoreDataHouse(descriptionString: String, isFavorite: Bool) {
         let context = persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HouseCoreData")
-        request.predicate = NSPredicate(format: "descriptionString = '\(description)'")
+        request.predicate = NSPredicate(format: "descriptionString = '\(descriptionString)'")
         do {
             let result = try context.fetch(request)
+            print(result)
             let resultData = result as! [HouseCoreData]
+            print(resultData)
             let object = resultData[0]
+            print(object.isFavorite)
             object.setValue(isFavorite, forKey: "isFavorite")
+            
             saveContext()
         } catch {
             print(error)
