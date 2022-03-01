@@ -53,6 +53,7 @@
 		01A8835227CE86E50076BC1C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835127CE86E50076BC1C /* RootViewController.swift */; };
 		01A8835427CE89390076BC1C /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835327CE89390076BC1C /* Dependencies.swift */; };
 		01A8835C27CEC06D0076BC1C /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */; };
+		01A8836027CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,12 +119,12 @@
 		0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatterTests.swift; sourceTree = "<group>"; };
 		0138EE8B27C71177001A484A /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		0138EE8D27C7130B001A484A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
-		0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
 		01A8834C27CE72E60076BC1C /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		01A8834E27CE7F150076BC1C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		01A8835127CE86E50076BC1C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		01A8835327CE89390076BC1C /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,7 +291,7 @@
 		0138EE8F27C7918A001A484A /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				0138EE9027C7919F001A484A /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
+				01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -408,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A8836027CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */,
 				0138EE5F27C55F79001A484A /* GothamSSm-LightItalic.otf in Resources */,
 				0138EE2527C55EDC001A484A /* LaunchScreen.storyboard in Resources */,
 				0138EE5727C55F79001A484A /* GothamSSm-Black.otf in Resources */,
