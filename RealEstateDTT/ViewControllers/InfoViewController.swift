@@ -9,14 +9,15 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
+    private var infoViewModel = InfoViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .dttLightGray
     }
 
     @IBAction func linkPressed(_ sender: UIButton) {
-        guard let url = URL(string: Constants.dttURL) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        infoViewModel.openDTTWebsite()
     }
     
 }

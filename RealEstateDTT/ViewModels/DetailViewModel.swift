@@ -11,8 +11,8 @@ import MapKit
 
 class DetailViewModel {
     
-    private var chosenHouse: House
     private let houseSaveableToDisk: HouseSaveableToDisk
+    var chosenHouse: House
     var houseAnnotation: HouseAnnotation {
             let zip = chosenHouse.zip
             let city = chosenHouse.city
@@ -32,7 +32,8 @@ class DetailViewModel {
     }
     
     // Using description as a unique identifier for now
-    func updateHouse(_ chosenHouse: House, isFavorite: Bool) {
+    func updateHouse() {
+        let isFavorite = chosenHouse.isFavorite
         houseSaveableToDisk.updateCoreDataHouse(descriptionString: chosenHouse.descriptionString, isFavorite: isFavorite)
     }
     

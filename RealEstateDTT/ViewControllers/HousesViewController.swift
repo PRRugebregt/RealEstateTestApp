@@ -14,18 +14,9 @@ class HousesViewController: UIViewController {
     @IBOutlet weak var noSearchResultsImage: UIImageView!
     /// property dependency injection by rootviewcontroller
     var houseManager: HouseManager!
-    private var houses = [House]() {
-        didSet {
-            refreshTable()
-            DispatchQueue.main.async {
-                self.noSearchResultsImage.alpha = self.houses.isEmpty ? 1 : 0
-            }
-        }
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .refreshData, object: nil)
         self.houseManager = HouseManager()
     }
@@ -48,18 +39,11 @@ class HousesViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    // Responding to notification posted by HouseManager
-    @objc func updateHouses(_ notification: Notification) {
-        print("received notification in housesviewcontroller")
-        if let houses = notification.userInfo?["houses"] as? [House] {
-            self.houses = houses
-        }
-    }
-    
     // Reloading table when locationManager auth changes, or houses change.
     @objc func refreshTable() {
         DispatchQueue.main.async {
             self.housesTableView.reloadData()
+            self.noSearchResultsImage.alpha = self.houseManager.houses.isEmpty ? 1 : 0
         }
     }
     
@@ -71,15 +55,10 @@ class HousesViewController: UIViewController {
                 DetailViewController(chosenHouse: house, chosenDistance: distance, coder: coder)
             }
         ) else {
-            fatalError("Failed to create Product Details VC")
+            fatalError("Failed to create Detail ViewController")
         }
-        print("check")
-        viewController.delegate = self
+        viewController.delegate = houseManager
         show(viewController, sender: self)
-    }
-    
-    func updateFavorites() {
-        houseManager.updateFavorites()
     }
     
 }
@@ -88,7 +67,7 @@ extension HousesViewController: UITableViewDelegate {
     
     // Saving selected house to property chosenHouse to be used in segue
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        houseManager.chooseHouse(houses[indexPath.row])
+        houseManager.chooseHouse(with: indexPath.row)
         if let chosenHouse = houseManager.chosenHouse {
             let distance = houseManager.chosenDistance
             showDetailViewController(for: chosenHouse, with: distance)
@@ -100,11 +79,11 @@ extension HousesViewController: UITableViewDelegate {
 extension HousesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return houses.count
+        return houseManager.houses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell.createCustomHouseCell(for: tableView, houses: houses, locationManager: houseManager.locationManager, row: indexPath.row)
+        return UITableViewCell.createCustomHouseCell(for: tableView, houses: houseManager.houses, locationManager: houseManager.locationManager, row: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

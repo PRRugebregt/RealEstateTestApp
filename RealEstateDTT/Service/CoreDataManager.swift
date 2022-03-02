@@ -49,7 +49,6 @@ class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
                                   longitude: Double(result.longitude),
                                   imageData: result.image,
                                   isFavorite: result.isFavorite)
-                    
                 houses.append(house)
             }
             print("HOUSES COUNT COREDATA = \(houses.count)")

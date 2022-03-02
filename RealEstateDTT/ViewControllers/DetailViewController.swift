@@ -21,12 +21,12 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     private var detailViewModel: DetailViewModel
-    var delegate: HousesViewController?
-    var chosenHouse: House
+    var delegate: CanUpdateFavorites?
+ //   var chosenHouse: House
     var chosenDistance: Float = 0
     
     init?(chosenHouse: House, chosenDistance: Float, coder: NSCoder) {
-        self.chosenHouse = chosenHouse
+ //       self.chosenHouse = chosenHouse
         self.detailViewModel = DetailViewModel(chosenHouse: chosenHouse)
         self.chosenDistance = chosenDistance
         super.init(coder: coder)
@@ -38,7 +38,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailViewModel = DetailViewModel(chosenHouse: chosenHouse)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = .clear
         descriptionLabel.adjustsFontSizeToFitWidth = true
@@ -51,8 +50,9 @@ class DetailViewController: UIViewController {
     
     // Making sure to display all the information of chosenHouse
     func setupUI() {
+        let chosenHouse = detailViewModel.chosenHouse
             view.backgroundColor = .dttLightGray
-            let pricePerM2 = PriceFormatter.shared.formatPrice(chosenHouse.price / chosenHouse.size) ?? "0"
+        let pricePerM2 = PriceFormatter.shared.formatPrice(chosenHouse.price / chosenHouse.size) ?? "0"
             let priceAsString = PriceFormatter.shared.formatPrice(chosenHouse.price) ?? "0"
             if let imageData = chosenHouse.imageData {
                 let image = UIImage(data: imageData)
@@ -89,9 +89,9 @@ class DetailViewController: UIViewController {
     
     // Saving chosenHouse in favorite list by toggling isFavorite property.
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        self.chosenHouse.isFavorite.toggle()
-        detailViewModel.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
-        let imageName = chosenHouse.isFavorite ? "heart.fill" : "heart"
+        self.detailViewModel.chosenHouse.isFavorite.toggle()
+        detailViewModel.updateHouse()
+        let imageName = detailViewModel.chosenHouse.isFavorite ? "heart.fill" : "heart"
         print(imageName)
         delegate?.updateFavorites()
         DispatchQueue.main.async {

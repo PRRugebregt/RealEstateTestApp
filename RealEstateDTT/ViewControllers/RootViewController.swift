@@ -19,7 +19,6 @@ class RootViewController: UINavigationController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.locationManager = appDelegate.locationManager
         self.network = appDelegate.network
-        print(self.children)
         favoriteController.locationManager = locationManager
     }
 

@@ -7,7 +7,11 @@
 
 import Foundation
 
-class HouseManager {
+protocol CanUpdateFavorites {
+    func updateFavorites()
+}
+
+class HouseManager: CanUpdateFavorites {
 
     private let houseSaveableToDisk: HouseSaveableToDisk
     private let houseFetchableFromDisk: HouseFetchableFromDisk
@@ -16,8 +20,7 @@ class HouseManager {
     let network: NetworkFetchable
     var chosenHouse: House?
     var chosenDistance: Float = 0
-    
-    private var houses = [House]() {
+    var houses = [House]() {
         didSet {
             houses.sort(by: {$0.price < $1.price})
             postUpdate()
@@ -40,6 +43,7 @@ class HouseManager {
     // Update HouseViewController houses
     func postUpdate() {
         NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+        NotificationCenter.default.post(name: .refreshData, object: nil)
         print(houses)
     }
     
@@ -95,19 +99,18 @@ class HouseManager {
     }
     
     // Chosen house for detail view
-    func chooseHouse(_ house: House) {
-        chosenHouse = house
-        chosenDistance = locationManager.calculateDistance(latitude: house.latitude, longitude: house.longitude)
+    func chooseHouse(with index: Int) {
+        chosenHouse = houses[index]
+        guard let chosenHouse = chosenHouse else { return }
+        chosenDistance = locationManager.calculateDistance(latitude: chosenHouse.latitude, longitude: chosenHouse.longitude)
     }
     
+    // update isFavorite boolean for FavoritesViewController list
     func updateFavorites() {
-        guard let chosenHouse = chosenHouse else {
-            return
-        }
+        guard let chosenHouse = chosenHouse else { return }
         for i in houses.indices {
             if houses[i].descriptionString == chosenHouse.descriptionString {
                 houses[i].isFavorite.toggle()
-                print(houses[i].isFavorite)
                 break
             }
         }
