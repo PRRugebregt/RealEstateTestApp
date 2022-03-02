@@ -14,7 +14,7 @@
 		0138EE2027C55EDA001A484A /* RealEstateDTT.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE1E27C55EDA001A484A /* RealEstateDTT.xcdatamodeld */; };
 		0138EE2227C55EDC001A484A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE2127C55EDC001A484A /* Assets.xcassets */; };
 		0138EE2527C55EDC001A484A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE2327C55EDC001A484A /* LaunchScreen.storyboard */; };
-		0138EE3027C55EDC001A484A /* RealEstateDTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE2F27C55EDC001A484A /* RealEstateDTTTests.swift */; };
+		0138EE3027C55EDC001A484A /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE2F27C55EDC001A484A /* NetworkTests.swift */; };
 		0138EE3A27C55EDC001A484A /* RealEstateDTTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE3927C55EDC001A484A /* RealEstateDTTUITests.swift */; };
 		0138EE3C27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EE3B27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift */; };
 		0138EE5527C55F79001A484A /* GothamSSm-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0138EE4927C55F78001A484A /* GothamSSm-BoldItalic.otf */; };
@@ -55,6 +55,7 @@
 		01A8836227CEEC3D0076BC1C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8836127CEEC3D0076BC1C /* DetailViewModel.swift */; };
 		01A8836827CFE3CC0076BC1C /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8836727CFE3CC0076BC1C /* InfoViewModel.swift */; };
 		01A8836A27CFE71D0076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 01A8836927CFE71D0076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */; };
+		01A8836C27CFE8240076BC1C /* HouseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8836B27CFE8240076BC1C /* HouseManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +86,7 @@
 		0138EE2427C55EDC001A484A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0138EE2627C55EDC001A484A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0138EE2B27C55EDC001A484A /* RealEstateDTTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealEstateDTTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0138EE2F27C55EDC001A484A /* RealEstateDTTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateDTTTests.swift; sourceTree = "<group>"; };
+		0138EE2F27C55EDC001A484A /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		0138EE3527C55EDC001A484A /* RealEstateDTTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealEstateDTTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0138EE3927C55EDC001A484A /* RealEstateDTTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateDTTUITests.swift; sourceTree = "<group>"; };
 		0138EE3B27C55EDC001A484A /* RealEstateDTTUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstateDTTUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 		01A8836127CEEC3D0076BC1C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		01A8836727CFE3CC0076BC1C /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		01A8836927CFE71D0076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
+		01A8836B27CFE8240076BC1C /* HouseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,9 +198,10 @@
 		0138EE2E27C55EDC001A484A /* RealEstateDTTTests */ = {
 			isa = PBXGroup;
 			children = (
-				0138EE2F27C55EDC001A484A /* RealEstateDTTTests.swift */,
+				0138EE2F27C55EDC001A484A /* NetworkTests.swift */,
 				0138EE8627C6D699001A484A /* FilterTests.swift */,
 				0138EE8827C6D80F001A484A /* PriceFormatterTests.swift */,
+				01A8836B27CFE8240076BC1C /* HouseManagerTests.swift */,
 			);
 			path = RealEstateDTTTests;
 			sourceTree = "<group>";
@@ -486,7 +489,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0138EE3027C55EDC001A484A /* RealEstateDTTTests.swift in Sources */,
+				01A8836C27CFE8240076BC1C /* HouseManagerTests.swift in Sources */,
+				0138EE3027C55EDC001A484A /* NetworkTests.swift in Sources */,
 				0138EE8927C6D80F001A484A /* PriceFormatterTests.swift in Sources */,
 				0138EE8727C6D699001A484A /* FilterTests.swift in Sources */,
 			);

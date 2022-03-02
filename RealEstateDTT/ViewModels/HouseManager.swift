@@ -30,8 +30,8 @@ class HouseManager: CanUpdateFavorites {
     // Dependency injection through RootViewController
     init(network: NetworkFetchable = NetworkDownload(),
          locationManager: LocationManageable = LocationManager(),
-         houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager(),
-         houseFetchableFromDisk: HouseFetchableFromDisk = CoreDataManager()) {
+         houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager.shared,
+         houseFetchableFromDisk: HouseFetchableFromDisk = CoreDataManager.shared) {
         self.houseSaveableToDisk = houseSaveableToDisk
         self.houseFetchableFromDisk = houseFetchableFromDisk
         self.locationManager = locationManager

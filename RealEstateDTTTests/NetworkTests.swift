@@ -9,7 +9,7 @@ import XCTest
 import UIKit
 @testable import RealEstateDTT
 
-class RealEstateDTTTests: XCTestCase {
+class NetworkTests: XCTestCase {
 
     var sut: NetworkFetchable?
     
