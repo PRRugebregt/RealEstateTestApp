@@ -19,7 +19,6 @@ protocol HouseFetchableFromDisk {
 
 class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
     
-//    static let shared = CoreDataManager()
     lazy var persistentContainer: NSPersistentContainer = {
 
         let container = NSPersistentContainer(name: "RealEstateDTT")
@@ -30,7 +29,7 @@ class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
         })
         return container
     }()
-
+    
     func fetchHouses() -> [House] {
         let request: NSFetchRequest<HouseCoreData> = HouseCoreData.fetchRequest()
         do {
@@ -53,6 +52,7 @@ class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
                     
                 houses.append(house)
             }
+            print("HOUSES COUNT COREDATA = \(houses.count)")
             return houses
         } catch {
             print(error)
@@ -98,13 +98,10 @@ class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
         request.predicate = NSPredicate(format: "descriptionString = '\(descriptionString)'")
         do {
             let result = try context.fetch(request)
-            print(result)
             let resultData = result as! [HouseCoreData]
-            print(resultData)
             let object = resultData[0]
-            print(object.isFavorite)
             object.setValue(isFavorite, forKey: "isFavorite")
-            
+            print(object.isFavorite)
             saveContext()
         } catch {
             print(error)

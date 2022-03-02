@@ -83,7 +83,7 @@
         <!--Detail View Controller-->
         <scene sceneID="5bJ-aG-Hec">
             <objects>
-                <viewController id="1eF-In-iDc" customClass="DetailViewController" customModule="RealEstateDTT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1eF-In-iDc" customClass="DetailViewController" customModule="RealEstateDTT" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Va-rP-fiS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

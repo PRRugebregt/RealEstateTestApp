@@ -13,10 +13,7 @@ class HousesViewController: UIViewController {
     @IBOutlet weak var housesTableView: UITableView!
     @IBOutlet weak var noSearchResultsImage: UIImageView!
     /// property dependency injection by rootviewcontroller
-    var locationManager: LocationManageable?
-    var houseManager: HouseManager?
-    private var chosenHouse: House?
-    private var chosenDistance: Float = 0
+    var houseManager: HouseManager!
     private var houses = [House]() {
         didSet {
             refreshTable()
@@ -30,6 +27,7 @@ class HousesViewController: UIViewController {
         super.init(coder: coder)
         NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .refreshData, object: nil)
+        self.houseManager = HouseManager()
     }
     
     override func viewDidLoad() {
@@ -65,13 +63,23 @@ class HousesViewController: UIViewController {
         }
     }
     
-    // Preparing for segue to detail view
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? DetailViewController, let chosenHouse = houseManager?.chosenHouse {
-            print(chosenHouse)
-            destination.chosenHouse = chosenHouse
-            destination.chosenDistance = houseManager?.chosenDistance ?? 0
+    // New method instead of prepareForSegue to have custom init in DetailViewController
+    func showDetailViewController(for house: House, with distance: Float) {
+        guard let viewController = storyboard?.instantiateViewController(
+            identifier: "DetailViewController",
+            creator: { coder in
+                DetailViewController(chosenHouse: house, chosenDistance: distance, coder: coder)
+            }
+        ) else {
+            fatalError("Failed to create Product Details VC")
         }
+        print("check")
+        viewController.delegate = self
+        show(viewController, sender: self)
+    }
+    
+    func updateFavorites() {
+        houseManager.updateFavorites()
     }
     
 }
@@ -80,9 +88,11 @@ extension HousesViewController: UITableViewDelegate {
     
     // Saving selected house to property chosenHouse to be used in segue
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        houseManager?.chooseHouse(houses[indexPath.row])
-        guard houseManager?.chosenHouse != nil else { return }
-        performSegue(withIdentifier: "housesToDetail", sender: self)
+        houseManager.chooseHouse(houses[indexPath.row])
+        if let chosenHouse = houseManager.chosenHouse {
+            let distance = houseManager.chosenDistance
+            showDetailViewController(for: chosenHouse, with: distance)
+        }
     }
     
 }
@@ -94,7 +104,7 @@ extension HousesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell.createCustomHouseCell(for: tableView, houses: houses, locationManager: locationManager, row: indexPath.row)
+        return UITableViewCell.createCustomHouseCell(for: tableView, houses: houses, locationManager: houseManager.locationManager, row: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -108,13 +118,13 @@ extension HousesViewController: UISearchBarDelegate {
     // Reset search results
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        houseManager?.filter(with: "")
+        houseManager.filter(with: "")
         refreshTable()
     }
     
     // Filter results with text from searchbar. Hide or unhide noResultsImage based on results.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        houseManager?.filter(with: searchText)
+        houseManager.filter(with: searchText)
         refreshTable()
     }
     

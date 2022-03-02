@@ -23,7 +23,7 @@ class DetailViewModel {
                                    zip: zip,
                                    city: city)
     }
-    var center = CLLocationCoordinate2D()
+    var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
     
     init(chosenHouse: House, houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager()) {
         self.chosenHouse = chosenHouse

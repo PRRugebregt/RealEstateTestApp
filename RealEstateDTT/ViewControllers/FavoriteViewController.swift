@@ -35,11 +35,18 @@ class FavoriteViewController: UIViewController {
         }
     }
     
-    // Segue to Detail View
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! DetailViewController
-        destination.chosenHouse = chosenHouse
-        destination.chosenDistance = chosenDistance
+    // New method instead of prepareForSegue to have custom init in DetailViewController
+    func showDetailViewController(for house: House, with distance: Float) {
+        guard let viewController = storyboard?.instantiateViewController(
+            identifier: "DetailViewController",
+            creator: { coder in
+                DetailViewController(chosenHouse: house, chosenDistance: distance, coder: coder)
+            }
+        ) else {
+            fatalError("Failed to create Product Details VC")
+        }
+        print("check")
+        show(viewController, sender: self)
     }
     
 }
@@ -48,9 +55,10 @@ extension FavoriteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         chosenHouse = favoriteHouses[indexPath.row]
-        guard chosenHouse != nil else { return }
-        chosenDistance = locationManager.calculateDistance(latitude: chosenHouse!.latitude, longitude: chosenHouse!.longitude)
-        performSegue(withIdentifier: "favoritesToDetail", sender: self)
+        if let chosenHouse = chosenHouse {
+            chosenDistance = locationManager.calculateDistance(latitude: chosenHouse.latitude, longitude: chosenHouse.longitude)
+            showDetailViewController(for: chosenHouse, with: chosenDistance)
+        }
     }
     
 }

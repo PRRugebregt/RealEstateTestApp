@@ -25,21 +25,22 @@ class HouseManager {
     }
     
     // Dependency injection through RootViewController
-    init(network: NetworkFetchable,
-         locationManager: LocationManageable,
+    init(network: NetworkFetchable = NetworkDownload(),
+         locationManager: LocationManageable = LocationManager(),
          houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager(),
          houseFetchableFromDisk: HouseFetchableFromDisk = CoreDataManager()) {
         self.houseSaveableToDisk = houseSaveableToDisk
         self.houseFetchableFromDisk = houseFetchableFromDisk
         self.locationManager = locationManager
         self.network = network
-        checkForCoreDataObjects()
         locationManager.checkForLocationPermission()
+        checkForCoreDataObjects()
     }
     
     // Update HouseViewController houses
     func postUpdate() {
         NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+        print(houses)
     }
     
     // When houses haven't been saved to CoreData yet, fetch them from network, else load them from coredata
@@ -80,6 +81,12 @@ class HouseManager {
     // Using description as a unique identifier for now
     func updateHouse(_ chosenHouse: House, isFavorite: Bool) {
         houseSaveableToDisk.updateCoreDataHouse(descriptionString: chosenHouse.descriptionString, isFavorite: isFavorite)
+        for i in houses.indices {
+            if houses[i].descriptionString == chosenHouse.descriptionString {
+                houses[i].isFavorite = isFavorite
+                break
+            }
+        }
     }
     
     // Filter houses by query
@@ -91,6 +98,19 @@ class HouseManager {
     func chooseHouse(_ house: House) {
         chosenHouse = house
         chosenDistance = locationManager.calculateDistance(latitude: house.latitude, longitude: house.longitude)
+    }
+    
+    func updateFavorites() {
+        guard let chosenHouse = chosenHouse else {
+            return
+        }
+        for i in houses.indices {
+            if houses[i].descriptionString == chosenHouse.descriptionString {
+                houses[i].isFavorite.toggle()
+                print(houses[i].isFavorite)
+                break
+            }
+        }
     }
     
 }
