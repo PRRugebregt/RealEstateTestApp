@@ -20,38 +20,27 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    
+    private var detailViewModel: DetailViewModel!
     var chosenHouse: House!
-    var houseManager: HouseManager?
-    var houseAnnotation: HouseAnnotation {
-            let zip = chosenHouse.zip
-            let city = chosenHouse.city
-            let coordinate = CLLocationCoordinate2D(latitude: chosenHouse.latitude,
-                                                    longitude: chosenHouse.longitude)
-            return HouseAnnotation(title: "\(city), \(zip)",
-                                   coordinate: coordinate,
-                                   zip: zip,
-                                   city: city)
-    }
     var chosenDistance: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        detailViewModel = DetailViewModel(chosenHouse: chosenHouse)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.backgroundColor = .clear
         descriptionLabel.adjustsFontSizeToFitWidth = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(popDetailView))
-        self.navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(popDetailView))
+        navigationItem.leftBarButtonItem?.tintColor = .white
         setupUI()
         setupMap()
         mapView.delegate = self
-        
     }
     
     // Making sure to display all the information of chosenHouse
     func setupUI() {
         if let chosenHouse = chosenHouse {
-            self.view.backgroundColor = .dttLightGray
+            view.backgroundColor = .dttLightGray
             let pricePerM2 = PriceFormatter.shared.formatPrice(chosenHouse.price / chosenHouse.size) ?? "0"
             let priceAsString = PriceFormatter.shared.formatPrice(chosenHouse.price) ?? "0"
             if let imageData = chosenHouse.imageData {
@@ -68,24 +57,24 @@ class DetailViewController: UIViewController {
             squareMetersLabel.text = String(chosenHouse.size)
             let distance = chosenDistance / 1000
             distanceLabel.text = String(format: "%.2f", distance)
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
+            navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popDetailView))
         }
     }
     
     // Zooming on the house Location
     func setupMap() {
-        let center = CLLocationCoordinate2D(latitude: houseAnnotation.coordinate.latitude, longitude: houseAnnotation.coordinate.longitude)
-        mapView.centerCoordinate = center
+        let center = detailViewModel.center
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 1500, longitudinalMeters: 1500)
+        mapView.centerCoordinate = center
         mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: region)
         mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 1500), animated: false)
-        mapView.addAnnotation(houseAnnotation)
+        mapView.addAnnotation(detailViewModel.houseAnnotation)
     }
     
     // Method to pop viewcontroller when custom back button is pressed
     @objc func popDetailView() {
-        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.navigationBar.isHidden = true
+        navigationController?.popViewController(animated: true)
+        navigationController?.navigationBar.isHidden = true
     }
     
     // Saving chosenHouse in favorite list by toggling isFavorite property.
@@ -93,12 +82,12 @@ class DetailViewController: UIViewController {
         guard chosenHouse != nil else {
             return
         }
-        self.chosenHouse!.isFavorite.toggle()
-        houseManager?.updateHouse(chosenHouse!, isFavorite: chosenHouse!.isFavorite)
-        if self.chosenHouse!.isFavorite {
-            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        } else {
-            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        self.chosenHouse.isFavorite.toggle()
+        detailViewModel.updateHouse(chosenHouse, isFavorite: chosenHouse.isFavorite)
+        let imageName = chosenHouse.isFavorite ? "heart.fill" : "heart"
+        print(imageName)
+        DispatchQueue.main.async {
+            self.favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
         }
     }
     
@@ -129,10 +118,6 @@ extension DetailViewController: MKMapViewDelegate {
     
     // AccessoryButton shows route to house
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        guard let houseAnnotation = view.annotation as? HouseAnnotation else { return }
-        let launchOptions = [
-            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
-        ]
-        houseAnnotation.mapItem?.openInMaps(launchOptions: launchOptions)
+        detailViewModel.openLocationInMaps(from: view)
     }
 }

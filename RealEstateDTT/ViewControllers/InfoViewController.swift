@@ -15,7 +15,7 @@ class InfoViewController: UIViewController {
     }
 
     @IBAction func linkPressed(_ sender: UIButton) {
-        guard let url = URL(string: "https://www.d-tt.nl") else { return }
+        guard let url = URL(string: Constants.dttURL) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     

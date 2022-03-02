@@ -19,7 +19,6 @@ class HousesViewController: UIViewController {
     private var chosenDistance: Float = 0
     private var houses = [House]() {
         didSet {
-            houses.sort(by: {$0.price < $1.price})
             refreshTable()
             DispatchQueue.main.async {
                 self.noSearchResultsImage.alpha = self.houses.isEmpty ? 1 : 0
@@ -37,7 +36,6 @@ class HousesViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         searchBar.delegate = self
-        
         housesTableView.delegate = self
         housesTableView.dataSource = self
         housesTableView.register(UINib(nibName: "HouseTableViewCell", bundle: nil), forCellReuseIdentifier: "houseTableViewCell")
@@ -70,9 +68,9 @@ class HousesViewController: UIViewController {
     // Preparing for segue to detail view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? DetailViewController, let chosenHouse = houseManager?.chosenHouse {
+            print(chosenHouse)
             destination.chosenHouse = chosenHouse
             destination.chosenDistance = houseManager?.chosenDistance ?? 0
-            destination.houseManager = houseManager
         }
     }
     

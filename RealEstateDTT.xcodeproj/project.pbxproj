@@ -53,7 +53,8 @@
 		01A8835227CE86E50076BC1C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835127CE86E50076BC1C /* RootViewController.swift */; };
 		01A8835427CE89390076BC1C /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835327CE89390076BC1C /* Dependencies.swift */; };
 		01A8835C27CEC06D0076BC1C /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */; };
-		01A8836027CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */; };
+		01A8836227CEEC3D0076BC1C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8836127CEEC3D0076BC1C /* DetailViewModel.swift */; };
+		01A8836427CEF7050076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 01A8836327CEF7050076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +125,8 @@
 		01A8835127CE86E50076BC1C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		01A8835327CE89390076BC1C /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
-		01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
+		01A8836127CEEC3D0076BC1C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		01A8836327CEF7050076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +293,7 @@
 		0138EE8F27C7918A001A484A /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				01A8835F27CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
+				01A8836327CEF7050076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -301,6 +303,7 @@
 			children = (
 				0138EE8227C6C718001A484A /* HouseManager.swift */,
 				01A8835B27CEC06D0076BC1C /* FavoritesViewModel.swift */,
+				01A8836127CEEC3D0076BC1C /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -409,7 +412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01A8836027CEC2760076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */,
+				01A8836427CEF7050076BC1C /* DTT-Test-Hour-Log-1_updated_bonus Patrick Rugebregt.xlsx in Resources */,
 				0138EE5F27C55F79001A484A /* GothamSSm-LightItalic.otf in Resources */,
 				0138EE2527C55EDC001A484A /* LaunchScreen.storyboard in Resources */,
 				0138EE5727C55F79001A484A /* GothamSSm-Black.otf in Resources */,
@@ -459,6 +462,7 @@
 				0138EE1A27C55EDA001A484A /* HousesViewController.swift in Sources */,
 				0138EE6427C56A97001A484A /* DetailViewController.swift in Sources */,
 				0138EE8527C6D2B1001A484A /* MockNetwork.swift in Sources */,
+				01A8836227CEEC3D0076BC1C /* DetailViewModel.swift in Sources */,
 				0138EE1627C55EDA001A484A /* AppDelegate.swift in Sources */,
 				0138EE7927C62E25001A484A /* HouseAnnotation.swift in Sources */,
 				0138EE7B27C6A07A001A484A /* Filter.swift in Sources */,

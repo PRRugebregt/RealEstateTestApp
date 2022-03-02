@@ -9,20 +9,22 @@ import Foundation
 
 class HouseManager {
 
-    let locationManager: LocationManageable
-    let network: NetworkFetchable
     private let houseSaveableToDisk: HouseSaveableToDisk
     private let houseFetchableFromDisk: HouseFetchableFromDisk
     private let filter = Filter()
+    let locationManager: LocationManageable
+    let network: NetworkFetchable
     var chosenHouse: House?
     var chosenDistance: Float = 0
     
     private var houses = [House]() {
         didSet {
-            NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+            houses.sort(by: {$0.price < $1.price})
+            postUpdate()
         }
     }
     
+    // Dependency injection through RootViewController
     init(network: NetworkFetchable,
          locationManager: LocationManageable,
          houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager(),
@@ -35,6 +37,11 @@ class HouseManager {
         locationManager.checkForLocationPermission()
     }
     
+    // Update HouseViewController houses
+    func postUpdate() {
+        NotificationCenter.default.post(name: .updateHouses, object: nil, userInfo: ["houses":houses])
+    }
+    
     // When houses haven't been saved to CoreData yet, fetch them from network, else load them from coredata
     func checkForCoreDataObjects() {
         let fetchedObjects = houseFetchableFromDisk.fetchHouses()
@@ -44,9 +51,9 @@ class HouseManager {
         }
         print("Loaded from coredata")
         houses = fetchedObjects
-        print(houses)
     }
     
+    // Network call for houselist 
     func downloadHouses() {
         network.fetchFromApi { items in
             self.houses = items
@@ -54,8 +61,8 @@ class HouseManager {
         }
     }
     
-    /* not very elegant but making sure reloadData() only gets called once every image is loaded
-    with count == self.houses.count
+    /* not very elegant but making sure saving Coredata context only gets called once every image is loaded
+    with count == self.houses.count. Refreshing list everytime new image is loaded
      */
     func downloadImages() {
         var count = 0
@@ -72,25 +79,18 @@ class HouseManager {
     
     // Using description as a unique identifier for now
     func updateHouse(_ chosenHouse: House, isFavorite: Bool) {
-        for i in houses.indices {
-            if houses[i].descriptionString == chosenHouse.descriptionString {
-                print("Found")
-                houses[i].isFavorite = isFavorite
-                houseSaveableToDisk.updateCoreDataHouse(descriptionString: houses[i].descriptionString, isFavorite: isFavorite)
-                break
-            }
-        }
+        houseSaveableToDisk.updateCoreDataHouse(descriptionString: chosenHouse.descriptionString, isFavorite: isFavorite)
     }
     
-    // filter houses by query
+    // Filter houses by query
     func filter(with query: String) {
         houses = filter.filter(with: query)
     }
     
+    // Chosen house for detail view
     func chooseHouse(_ house: House) {
         chosenHouse = house
-        chosenDistance = locationManager.calculateDistance(latitude: house.latitude,
-                                                            longitude: house.longitude)
+        chosenDistance = locationManager.calculateDistance(latitude: house.latitude, longitude: house.longitude)
     }
     
 }

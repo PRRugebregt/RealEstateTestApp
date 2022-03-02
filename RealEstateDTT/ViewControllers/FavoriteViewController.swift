@@ -14,7 +14,6 @@ class FavoriteViewController: UIViewController {
     private var chosenDistance: Float = 0
     private var favoritesViewModel = FavoritesViewModel()
     /// Property dependency Injection by RootViewcontroller
-    var houseManager: HouseManager!
     var locationManager: LocationManageable!
     var favoriteHouses : [House] = []
     
@@ -36,11 +35,11 @@ class FavoriteViewController: UIViewController {
         }
     }
     
+    // Segue to Detail View
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! DetailViewController
         destination.chosenHouse = chosenHouse
         destination.chosenDistance = chosenDistance
-        destination.houseManager = houseManager
     }
     
 }

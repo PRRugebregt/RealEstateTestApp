@@ -25,7 +25,6 @@ class RootViewController: UINavigationController {
         houseViewController.houseManager = houseManager
         houseViewController.locationManager = locationManager
         let favoriteController = self.tabBarController?.viewControllers?[2] as! FavoriteViewController
-        favoriteController.houseManager = houseManager
         favoriteController.locationManager = locationManager
     }
 
