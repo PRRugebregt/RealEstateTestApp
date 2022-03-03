@@ -12,13 +12,13 @@ class HousesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var housesTableView: UITableView!
     @IBOutlet weak var noSearchResultsImage: UIImageView!
-    /// property dependency injection by rootviewcontroller
-    var houseManager: HouseManager!
+    private lazy var houseManager: HouseManager = {
+        HouseManager()
+    }()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .refreshData, object: nil)
-        self.houseManager = HouseManager()
     }
     
     override func viewDidLoad() {

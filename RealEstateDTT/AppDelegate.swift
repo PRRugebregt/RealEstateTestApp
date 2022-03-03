@@ -10,22 +10,12 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var houses = [House]()
+    
     let locationManager = LocationManager()
-    let network = NetworkDownload()
+    let coreDataManager = CoreDataManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
         return true
-    }
-
-    // Updating houses to distribute to FavoritesViewController
-    @objc func updateHouses(_ notification: Notification) {
-        print("received Notification in App Delegate")
-        if let houses = notification.userInfo?["houses"] as? [House] {
-            self.houses = houses
-        }
     }
     
     // MARK: UISceneSession Lifecycle

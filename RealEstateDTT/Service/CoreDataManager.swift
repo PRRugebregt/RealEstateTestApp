@@ -19,7 +19,6 @@ protocol HouseFetchableFromDisk {
 
 class CoreDataManager: HouseSaveableToDisk, HouseFetchableFromDisk {
     
-    static let shared = CoreDataManager()
     lazy var persistentContainer: NSPersistentContainer = {
 
         let container = NSPersistentContainer(name: "RealEstateDTT")

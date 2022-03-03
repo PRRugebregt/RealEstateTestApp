@@ -11,13 +11,14 @@ import UIKit
 class FavoritesViewModel {
     
     // observer not added in time, so taking default list from AppDelegate
-    var houses: [House] {
-        get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.houses.filter({$0.isFavorite})
-        }
-        set {}
-    }
+    var houses: [House] = []
+//    {
+//        get {
+//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//            return appDelegate.houses.filter({$0.isFavorite})
+//        }
+//        set {}
+//    }
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateFavorites(_:)), name: .updateHouses, object: nil)

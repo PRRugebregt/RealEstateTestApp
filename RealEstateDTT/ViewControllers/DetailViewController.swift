@@ -22,11 +22,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     private var detailViewModel: DetailViewModel
     var delegate: CanUpdateFavorites?
- //   var chosenHouse: House
     var chosenDistance: Float = 0
     
     init?(chosenHouse: House, chosenDistance: Float, coder: NSCoder) {
- //       self.chosenHouse = chosenHouse
         self.detailViewModel = DetailViewModel(chosenHouse: chosenHouse)
         self.chosenDistance = chosenDistance
         super.init(coder: coder)

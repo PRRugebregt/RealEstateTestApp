@@ -11,18 +11,6 @@ class Filter {
     
     var originalHousesList = [House]()
     
-    init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateHouses(_:)), name: .updateHouses, object: nil)
-    }
-    
-    // Updating original list to always be up to date with HouseManagers houses
-    @objc func updateHouses(_ notification: Notification) {
-        print("received data")
-        if let houses = notification.userInfo?["houses"] as? [House] {
-            originalHousesList = houses
-        }
-    }
-    
     // Filtering houses that do not contain query in cityname or zipcode.
     // If query is empty. return original list.
     

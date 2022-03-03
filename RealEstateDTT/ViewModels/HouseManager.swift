@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol CanUpdateFavorites {
     func updateFavorites()
@@ -27,11 +28,10 @@ class HouseManager: CanUpdateFavorites {
         }
     }
     
-    // Dependency injection through RootViewController
     init(network: NetworkFetchable = NetworkDownload(),
-         locationManager: LocationManageable = LocationManager(),
-         houseSaveableToDisk: HouseSaveableToDisk = CoreDataManager.shared,
-         houseFetchableFromDisk: HouseFetchableFromDisk = CoreDataManager.shared) {
+         locationManager: LocationManageable = AppDelegate.shared.locationManager,
+         houseSaveableToDisk: HouseSaveableToDisk = AppDelegate.shared.coreDataManager,
+         houseFetchableFromDisk: HouseFetchableFromDisk = AppDelegate.shared.coreDataManager) {
         self.houseSaveableToDisk = houseSaveableToDisk
         self.houseFetchableFromDisk = houseFetchableFromDisk
         self.locationManager = locationManager
@@ -56,12 +56,14 @@ class HouseManager: CanUpdateFavorites {
         }
         print("Loaded from coredata")
         houses = fetchedObjects
+        filter.originalHousesList = fetchedObjects
     }
     
     // Network call for houselist 
     func downloadHouses() {
         network.fetchFromApi { items in
             self.houses = items
+            self.filter.originalHousesList = items
             self.downloadImages()
         }
     }
